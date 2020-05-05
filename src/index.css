@@ -25,11 +25,13 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 }
 
 html {
+    font-size: 62.5%;
     height: 100%;
     /* background-image: linear-gradient(to top right, rgba(27, 27, 30, 0.85) 50%, rgba(150, 3, 26, 0.8)), url("/assets/dnd-wallpaper.jpg"); */
     background-image: linear-gradient(to top right, rgba(150, 3, 26, 0.8) -70%, rgba(27, 27, 30, 0.9), rgba(150, 3, 26, 0.8) 150%), url("/assets/dnd-wallpaper.jpg");
     /* background-image: linear-gradient(to top right,rgba(75, 1.5, 13, 0.6), rgba(75, 1.5, 13, 0.6)), url("/assets/dnd-wallpaper.jpg"); */
     background-size: cover;
+    font-family: Tiamat Alt;
 }
 
 body {
@@ -38,6 +40,13 @@ body {
 
 #root {
     height: 100%;
+}
+
+.NavBar {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5vh;
+    font-size: calc(1.2rem + 0.3vw);
 }
 
 .Wrapper {
@@ -49,22 +58,43 @@ body {
     justify-content: center;
     align-content: flex-start;
     flex-wrap: wrap;
-    /* background-color: rgba(27, 27, 30, 0.35); */
-    /* background-color: rgba(27, 27, 30, 0.75); */
     height: 100%;
+    /* background-color: #1b1b1e; */
+    /* opacity: 0.5; */
 }
 
 h1 {
-    font-size: calc(2.5rem + 1.5vw);
+    font-size: calc(2.5rem + 2vw);
     /* font-family: Tiamat Regular; */
     font-family: Tiamat Regular;
     transform: scaleX(1.2);
     width: 100%;
-    text-align: center;
+    margin: 0;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 a {
     color: #FBFFFE;
     text-decoration: none;
     font-family: Tiamat Alt;
+}
+
+button {
+    background-color: #faa916;
+    /* border: 1px solid #1b1b1e; */
+    border: none;
+    font-family: Tiamat Regular;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+input[type="text"] {
+    background-color: #6d676e;
+    /* border: 1px solid #1b1b1e; */
+    border: none;
 }

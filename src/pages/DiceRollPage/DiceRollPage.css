@@ -1,0 +1,283 @@
+.DiceRollPage {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 85vh;
+    align-content: flex-start;
+}
+
+.DiceContainer {
+    width: calc(88% / 3);
+    background-color: rgba(55, 52, 55, 0.7);
+    border-radius: 30px;
+    margin: 2%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DiceContainer:hover {
+    background-color: rgba(109, 103, 110, 0.7);
+    cursor: pointer;
+}
+
+.DiceRoll {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    font-size: calc(1.2rem + 0.4vw);
+}
+
+.DiceRoll > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Die {
+    background-color: green;
+    width: 20vh;
+    height: 20vh;
+    /* border: 1px solid black; */
+    /* box-shadow: 5px 5px black; */
+}
+
+/* d4 */
+
+#d41 {
+    clip-path: polygon(55% 25%, 75% 90%, 15% 75%);
+    background-color: darkred;
+}
+
+#d42 {
+    clip-path: border-box polygon(55% 25%, 75% 90%, 85% 60%);
+    background-color: red;
+    position: absolute;
+
+}
+
+/* d6 */
+
+#d61 {
+    background-color: rgb(170, 110, 0);
+    clip-path: polygon(15% 36%, 15% 80%, 55% 90%, 55% 45%);
+}
+
+#d62 {
+    background-color: orange;
+    clip-path: polygon(55% 90%, 55% 45%, 80% 34%, 80% 75%);
+    position: absolute;
+}
+
+#d63 {
+    background-color: rgb(204, 132, 0);
+    clip-path: polygon(15% 36%, 55% 45%, 80% 34%, 42% 25%);
+    position: absolute;
+}
+
+/* d8 */
+
+#d81 {
+    background-color: rgb(210, 210, 0);
+    clip-path: polygon(25% 38%, 88% 38%, 60% 90%);
+}
+
+#d82 {
+    background-color: rgb(250, 250, 0);
+    position: absolute;
+    clip-path: polygon(88% 38%, 60% 90%, 80% 75%);
+}
+
+#d83 {
+    background-color: rgb(150, 150, 0);
+    position: absolute;
+    clip-path: polygon(25% 38%, 60% 90%, 17% 75%);
+}
+
+#d84 {
+    background-color: rgb(230, 230, 0);
+    position: absolute;
+    clip-path: polygon(25% 38%, 88% 38%, 45% 21%);
+}
+
+/* d10 */
+
+#d101 {
+    background-color: rgb(0, 120, 0);
+    clip-path: polygon(20% 74%, 69% 80%, 67% 64%, 44% 53%);
+}
+
+#d102 {
+    clip-path: polygon(69% 80%, 67% 64%, 77% 26%, 76% 71%);
+    background-color: rgb(0, 200, 0);
+    position: absolute;
+}
+
+#d103 {
+    background-color: rgb(0, 160, 0);
+    clip-path: polygon(77% 26%, 67% 64%, 44% 53%, 38% 31%);
+    position: absolute;
+}
+
+#d104 {
+    background-color: rgb(0, 110, 0);
+    clip-path: polygon(20% 74%, 44% 53%, 38% 31%, 24% 25%);
+    position: absolute;
+}
+
+#d105 {
+    background-color: rgb(0, 180, 0);
+    clip-path: polygon(24% 25%, 38% 31%, 77% 26%, 33% 20%);
+    position: absolute;
+}
+
+/* d12 */
+
+#d121 {
+    background-color: rgb(0, 0, 180);
+    /* z-index: 1; */
+    clip-path: polygon(25% 62%, 36% 78%, 59% 80%, 63% 66%, 42% 55%);
+}
+
+#d122 {
+    background-color: rgb(10, 20, 255);
+    position: absolute;
+    /* z-index: 1; */
+    clip-path: polygon(59% 80%, 63% 66%, 78% 49%, 83% 52%, 72% 71%);
+}
+
+#d123 {
+    background-color: rgb(0, 0, 160);
+    position: absolute;
+    /* z-index: 1; */
+    clip-path: polygon(25% 62%, 42% 55%, 45% 32%, 30% 25%, 18% 45%);
+
+}
+
+#d124 {
+    background-color: rgb(0, 0, 240);
+    position: absolute;
+    clip-path: polygon(67% 28%, 78% 49%, 63% 66%, 42% 55%, 45% 32%);
+    /* z-index: 1; */
+}
+
+#d125 {
+    background-color: rgb(40, 80, 255);
+    position: absolute;
+    clip-path: polygon(83% 52%, 78% 49%, 67% 28%, 66% 20%, 76% 35%);
+    /* z-index: 1; */
+}
+
+#d126 {
+    background-color: blue;
+    position: absolute;
+    clip-path: polygon(66% 20%, 67% 28%, 45% 32%, 30% 25%, 42% 17%);
+}
+
+/* d20 */
+
+#d201 {
+    background-color: rgb(80, 0, 80);
+    clip-path: polygon(35% 85%, 22% 54%, 14% 52%);
+    z-index: 1;
+}
+
+#d202 {
+    background-color: rgb(110, 0, 110);
+    clip-path: polygon(35% 85%, 22% 54%, 62% 72%);
+    position: absolute;
+    z-index: 1;
+}
+
+#d203 {
+    clip-path: polygon(35% 85%, 62% 72%, 75% 79%);
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(110, 0, 110);
+}
+
+#d204 {
+    clip-path: polygon(22% 54%, 14% 52%, 26% 19%);
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(90, 0, 90);
+}
+
+#d205 {
+    clip-path: polygon(22% 54%, 26% 19%, 57% 29%);
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(120, 0, 120);
+}
+
+#d206 {
+    clip-path: polygon(22% 54%, 57% 29%, 62% 72%);
+    position: absolute;
+    background-color: purple;
+    z-index: 1;
+}
+
+#d207 {
+    clip-path: polygon(89% 44%, 57% 29%, 62% 72%);
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(145, 0, 145);
+}
+
+#d208 {
+    clip-path: polygon(89% 44%, 62% 72%, 75% 79%);
+    position: absolute;
+    z-index: 1;
+    background-color: rgb(160, 0, 160);
+}
+
+#d209 {
+    clip-path: polygon(67% 13%, 26% 19%, 57% 29%);
+    position: absolute;
+    background-color: purple;
+}
+
+#d2010 {
+    clip-path: polygon(67% 13%, 89% 44%, 57% 29%);
+    position: absolute;
+    background-color: rgb(155, 0, 155);
+}
+
+input[type="text"] {
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 1%;
+    border-radius: 0.1rem;
+    width: 40%;
+    cursor: default;
+}
+
+button {
+    padding: 1% 1.5% 1% 1.5%;
+    transform: scaleX(1.5);
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+button.SmallButton {
+    margin: 0;
+    transform: none;
+    height: 3vh;
+    width: 3vh;
+    padding: 0;
+}
+
+input[type="text"].NumInput {
+    width: calc(4rem + 2vw);
+    text-align: center;
+    cursor: text;
+}
+
+input.RollResult {
+    width: calc(4rem + 2vw);
+    text-align: center;
+}

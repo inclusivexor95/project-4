@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 // import GamePage from '../../pages/GamePage/GamePage';
 import LandingPage from '../LandingPage/LandingPage';
+import DiceRollPage from '../DiceRollPage/DiceRollPage';
 // import SettingsPage from '../SettingsPage/SettingsPage';
 // import HighScoresPage from '../HighScoresPage/HighScoresPage';
 import SignupPage from '../SignupPage/SignupPage';
@@ -16,6 +17,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
+        rollChain: [],
+        plusMinus: '+',
         // ...this.getInitialState(),
         // difficulty: 'Easy',
         // scores: [],
@@ -24,9 +27,14 @@ class App extends Component {
         };
     }
 
+    diceRoll(sides) {
+        return Math.ceil(Math.random() * sides);
+    }
+
     // getInitialState() {
-    //     return {
-    //     selColorIdx: 0,
+        // return {
+        
+        // selColorIdx: 0,
     //     guesses: [this.getNewGuess()],
     //     code: this.genCode(),
     //     elapsedTime: 0,
@@ -66,116 +74,28 @@ class App extends Component {
 
     /*--- Callback Methods ---*/
 
-    // handleTimerUpdate = () => {
-    //     this.setState((curState) => ({elapsedTime: ++curState.elapsedTime}));
-    // }
+    handleDieClick = (die) => {
+        const currentRollChain = [...this.state.rollChain];
+        currentRollChain.push(die);
+        this.setState({rollChain: currentRollChain});
+    }
 
-    // handleDifficultyChange = (level) => {
-    //     // Use callback to ensure level is updated BEFORE calling handleNewGameClick
-    //     this.setState({difficulty: level}, () => this.handleNewGameClick());
-    // }
-    
-    // handleColorSelection = (colorIdx) => {
-    //     this.setState({selColorIdx: colorIdx});
-    // }
+    handlePlusMinus = () => {
+        if (this.state.plusMinus === '+') {
+            this.setState({plusMinus: '-'});
+        };
+        if (this.state.plusMinus === '-') {
+            this.setState({plusMinus: '+'});
+        };
+    }
 
-    // handleNewGameClick = () => {
-    //     this.setState(this.getInitialState());
-    // }
+    handleRoll = (numInput) => {
+        const rollValue = this.state.rollChain.reduce((total, die) => {
+            return total + this.diceRoll(parseInt(die.slice(1)));
+        }, numInput);
 
-    // handlePegClick = (pegIdx) => {
-    //     // Get index of last guess object
-    //     let currentGuessIdx = this.state.guesses.length - 1;
-
-    //     // Always replace objects/arrays with NEW ones
-    //     let guessesCopy = [...this.state.guesses];
-    //     let guessCopy = {...guessesCopy[currentGuessIdx]};
-    //     let codeCopy = [...guessCopy.code];
-
-    //     // Update the NEW code array with the currently selected color
-    //     codeCopy[pegIdx] = this.state.selColorIdx;
-
-    //     // Update the NEW guess object
-    //     guessCopy.code = codeCopy;
-
-    //     // Update the NEW guesses array
-    //     guessesCopy[currentGuessIdx] = guessCopy;
-
-    //     // Update state with the NEW guesses array
-    //     this.setState({
-    //         guesses: guessesCopy
-    //     });
-    // }
-
-    // handleScoreClick = () => {
-    //     // Need the index of the current guess object (last object in guesses array)
-    //     let currentGuessIdx = this.state.guesses.length - 1;
-
-    //     // Create "working" copies of the "guessed" code and the secret
-    //     // code so that we can modify them as we compute the number of
-    //     // perfect and almost without messing up the actual ones in state
-    //     let guessCodeCopy = [...this.state.guesses[currentGuessIdx].code];
-    //     let secretCodeCopy = [...this.state.code];
-
-    //     let perfect = 0, almost = 0;
-
-    //     // First pass computes number of "perfect"
-    //     guessCodeCopy.forEach((code, idx) => {
-    //     if (secretCodeCopy[idx] === code) {
-    //         perfect++;
-    //         // Ensure same choice is not matched again
-    //         // by updating both elements in the "working"
-    //         // arrays to null
-    //         guessCodeCopy[idx] = secretCodeCopy[idx] = null;
-    //     }
-    //     });
-
-    //     // Second pass computes number of "almost"
-    //     guessCodeCopy.forEach((code, idx) => {
-    //     if (code === null) return;
-    //     let foundIdx = secretCodeCopy.indexOf(code);
-    //     if (foundIdx > -1) {
-    //         almost++;
-    //         // Again, ensure same choice is not matched again
-    //         secretCodeCopy[foundIdx] = null;
-    //     }
-    //     });
-
-    //     // State must only be updated with NEW objects/arrays
-    //         // Always replace objects/arrays with NEW ones
-    //     let guessesCopy = [...this.state.guesses];
-    //     let guessCopy = {...guessesCopy[currentGuessIdx]};
-    //     let scoreCopy = {...guessCopy.score};
-
-    //     scoreCopy.perfect = perfect;
-    //     scoreCopy.almost = almost;
-    //     guessCopy.score = scoreCopy;
-    //     guessesCopy[currentGuessIdx] = guessCopy;
-
-    //     if (perfect === 4) {
-    //     // Chicken dinner - need to stop the timer!
-    //     this.setState(state => ({isTiming: false}), async function() {
-    //         // Do high-score logic in this callback
-    //         if ((this.state.scores.length < 20 || this.isHighScore(guessesCopy))) {
-    //         let initials = prompt('Congrats you have a top-20 score! Enter your initials: ').substr(0, 3);
-    //         await scoresService.create({ initials, numGuesses: guessesCopy.length, seconds: this.state.elapsedTime });
-    //         this.props.history.push('/high-scores');
-    //         }        
-    //     });
-    //     } else {
-    //     guessesCopy.push(this.getNewGuess());
-    //     }
-
-    //     this.setState({
-    //     guesses: guessesCopy,
-    //     // This is a great way to update isTiming
-    //     isTiming: perfect !== 4
-    //     });
-    // }
-
-    // handleUpdateScores = (scores) => {
-    //     this.setState({ scores });
-    // }
+        this.setState({rollResult: rollValue, rollChain: []});
+    }
 
     handleLogout = () => {
         userService.logout();
@@ -234,6 +154,18 @@ class App extends Component {
                 <LoginPage
                 history={history}
                 handleSignupOrLogin={this.handleSignupOrLogin}
+                />
+            }/>
+            <Route exact path='/dice' render={() => 
+                <DiceRollPage
+                handleDieClick={this.handleDieClick}
+                handleLogout={this.handleLogout}
+                rollChain={this.state.rollChain}
+                user={this.state.user}
+                handlePlusMinus={this.handlePlusMinus}
+                plusMinus={this.state.plusMinus}
+                handleRoll={this.handleRoll}
+                rollResult={this.state.rollResult}
                 />
             }/>
             {/* <Route exact path='/high-scores' render={() => 
