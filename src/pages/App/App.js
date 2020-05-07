@@ -11,15 +11,16 @@ import LoginPage from '../LoginPage/LoginPage';
 import scoresService from '../../utils/scoresService';
 import userService from '../../utils/userService';
 import tokenService from '../../utils/tokenService';
+import CharPage from '../CharPage/CharPage';
 
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
+        // ...this.getInitialState(),
         rollChain: [],
         plusMinus: '+',
-        // ...this.getInitialState(),
         // difficulty: 'Easy',
         // scores: [],
         // Initialize user if there's a token, otherwise null
@@ -32,9 +33,9 @@ class App extends Component {
     }
 
     // getInitialState() {
-        // return {
+    //     return {
         
-        // selColorIdx: 0,
+    //     selColorIdx: 0,
     //     guesses: [this.getNewGuess()],
     //     code: this.genCode(),
     //     elapsedTime: 0,
@@ -136,14 +137,12 @@ class App extends Component {
                 user={this.state.user}
                 />
             }/>
-            {/* <Route exact path='/settings' render={props => 
-                // <SettingsPage
-                // {...props} 
-                // // colorsLookup={colors}
-                // // difficulty={this.state.difficulty}
-                // // handleDifficultyChange={this.handleDifficultyChange}
-                // />
-            }/> */}
+            <Route path='/characters' render={() => 
+                <CharPage
+                user={this.state.user}
+                handleLogout={this.handleLogout}
+                />
+            }/>
             <Route exact path='/signup' render={({ history }) => 
                 <SignupPage
                 history={history}
@@ -168,15 +167,6 @@ class App extends Component {
                 rollResult={this.state.rollResult}
                 />
             }/>
-            {/* <Route exact path='/high-scores' render={() => 
-                // userService.getUser() ? 
-                // <HighScoresPage
-                    // scores={this.state.scores}
-                    // handleUpdateScores={this.handleUpdateScores}
-                // />
-                // :
-                <Redirect to='/login'/>
-            }/> */}
             </Switch>
         </div>
         );

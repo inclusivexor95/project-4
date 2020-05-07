@@ -1,5 +1,8 @@
 const Character = require('../../models/Character');
 const User = require('../../models/User');
+const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET;
+
 
 module.exports = {
     index,
@@ -41,25 +44,26 @@ function show(req, res) {
 function create(req, res) {
     Character.create(req.body)
     .then(function(character) {
-        User.findOne({name: 'Matt'})
+        User.findOne({id: req.user.id})
         .then(function(user) {
             user.characters.push(character._id);
             user.save(function(err) {
-                res.redirect('/api/characters');
+                res.json(character);
             });
         });
     })
 }
 
 function index(req, res) {
-    User.findOne({name: 'Matt'})
+    User.findOne({id: req.user.id})
     .populate('characters').exec(function(err, user) {
-        res.render('api/characters', {user, characters: user.characters});
+        // console.log(user)
+        res.json(user.characters);
     });
 }
 
 function charCreation(req, res) {
-    User.findOne({name: 'Matt'})
+    User.findOne({id: req.user.id})
     .then(function(user) {
         res.render('api/createCharacter', {user});
     });

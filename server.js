@@ -5,21 +5,22 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const favicon = require('serve-favicon');
 
-const port = process.env.PORT || 3001;
-
 require('dotenv').config();
 require('./config/database');
 
-const docsRouter = require('./routes/docs');
+const port = process.env.PORT || 3001;
+
+// const docsRouter = require('./routes/docs');
 const charactersRouter = require('./routes/api/characters');
-const loginRouter = require('./routes/api/login');
+// const loginRouter = require('./routes/api/login');
 const abilitiesRouter = require('./routes/api/abilities');
+const usersRouter = require('./routes/api/users');
 
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,10 +29,12 @@ app.use(cookieParser());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use('/', docsRouter);
-app.use('/api', loginRouter);
-app.use('/api/characters', charactersRouter);
+// app.use('/', docsRouter);
+// app.use('/api', loginRouter);
 app.use('/api/abilities', abilitiesRouter);
+app.use('/api/users', usersRouter);
+app.use(require('./config/auth'));
+app.use('/api/characters', charactersRouter);
 
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -54,7 +57,10 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.json({
+        message: err.message,
+        error: err
+    });
 });
 
 module.exports = app;

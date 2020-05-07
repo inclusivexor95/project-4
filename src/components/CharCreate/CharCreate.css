@@ -1,0 +1,399 @@
+.CharCreate {
+    height: 75vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+form {
+    max-width: 70vh;
+    background-size: 100% 100%;
+    background-image: url(/assets/scrollBackground.jpg);
+    height: 100%;
+    display: grid;
+    grid-template-columns: 15% calc(calc(100% / 3) - 15%) auto auto;
+    grid-template-rows: 18% 35% 10% 15% 22.1%;
+    color: #1b1b1e;
+    text-align: center;
+    border-radius: 1rem;
+}
+
+form input[type="text"] {
+    background-color: rgba(109, 103, 110, 0.5);
+}
+
+li {
+    display: flex;
+}
+
+ul li input[type="text"] {
+    width: 15%;
+}
+
+form input[type="text"]:hover {
+    cursor: pointer;
+}
+
+form div {
+    border: 1px solid black;
+}
+
+#genInfo {
+    grid-column: 1 / 6;
+    display: flex;
+}
+
+#charName {
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+#charName input {
+    width: 80%;
+    height: 30%;
+}
+
+#raceClass {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#raceClass div {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#levelContainer {
+    width: 40%;
+}
+
+#classContainer {
+    width: 60%;
+}
+
+#classContainer input {
+    width: 100%;
+}
+
+#alignmentContainer {
+    width: 20%;
+}
+
+#raceContainer {
+    width: 40%;
+}
+
+#raceContainer label {
+    width: 100%;
+}
+
+#genderContainer {
+    width: 20%;
+}
+
+#expContainer {
+    width: 20%;
+}
+
+#expContainer input {
+    width: 80%;
+}
+
+#main {
+    grid-row: 2 / 5;
+    grid-column: 2 / 5;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#stats {
+    /* width: 25%; */
+    /* height: 100%; */
+    grid-column: 1 / 2;
+    grid-row: 2 / 5;
+}
+
+#stats > div {
+    height: calc(100% / 6);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#stats label {
+    width: 100%;
+}
+
+#stats input, #stats .Modifier {
+    width: calc(50% - 4px);
+    height: 50%;
+    /* box-sizing: border-box; */
+}
+
+#defense {
+    height: 30%;
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#hitPoints, #armorClass, #proficiencyBonus {
+    width: calc(100% / 3);
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#currentHitPoints {
+    width: 100%;
+    height: 50%;
+}
+
+#passive {
+    height: 30%;
+    width: 40%;
+}
+
+#saves {
+    height: 80%;
+    padding: 1%;
+}
+
+#saves ul {
+    margin: 0;
+    height: 80%;
+    list-style: none;
+    padding: 0;
+}
+
+#saves li {
+    box-sizing: border-box;
+    border-bottom: 1px dashed #6d676e;
+    height: calc(100% / 6);
+}
+
+#saves ul li p {
+    margin: 0;
+    text-align: left;
+}
+
+#saves p {
+    margin-top: 2.5%;
+    margin-bottom: 5%;
+    height: 5%;
+}
+
+#passPerc {
+    height: 20%;
+}
+
+#initiative, #speed {
+    height: 10%;
+}
+
+#skills {
+    height: 70%;
+    width: 40%;
+}
+
+#speed, #initiative {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15%;
+}
+
+#speed input, #initiative input {
+    width: 30%;
+    height: 100%;
+}
+
+#skillsContainer {
+    height: 80%;
+    padding: 1%;
+}
+
+#skillsContainer p {
+    height: 5%;
+    margin-top: 5%;
+    margin-bottom: 2.5%;
+}
+
+#skillsContainer ul {
+    height: 90%;
+    margin-bottom: 0;
+    margin-top: 2.5%;
+    list-style: none;
+    padding: 0;
+}
+
+#skillsContainer li {
+    border-top: 1px dashed #6d676e;
+    box-sizing: border-box;
+    height: calc(100% / 18);
+}
+
+#skillsContainer ul li p {
+    margin: 0;
+    text-align: left;
+}
+
+#equipment {
+    width: 60%;
+    height: 70%;
+}
+
+#equipment p {
+    margin: 0;
+}
+
+#ammo {
+    width: 100%;
+    height: 19%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#ammo p {
+    margin: 0 3% 0 3%;
+}
+
+#ammo .AmmoType {
+    width: 80%;
+    height: 25%;
+}
+
+#ammo .AmmoAmount {
+    width: 10%;
+    height: 25%;
+}
+
+#armor, #shield {
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5%;
+}
+
+#attackHeader {
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 7% 0 1%;
+}
+
+.Attack {
+    height: 14%;
+    display: flex;
+}
+
+.Attack input {
+    height: 100%;
+}
+
+.Attack .AttackName {
+    width: 47%;
+}
+
+.Attack .AttackDamage {
+    width: 21%;
+}
+
+.Attack .AttackDamageType {
+    width: 20%;
+}
+
+#abilities {
+    grid-row: 2 / 3;
+    grid-column: 5 / 5;
+    padding: 0 1% 1% 1%;
+}
+
+#languages {
+    grid-row: 3 / 4;
+    grid-column: 5 / 6;
+    padding: 0 1% 1% 1%;
+}
+
+#treasures {
+    grid-row: 5 / 6;
+    grid-column: 1 / 3;
+    padding: 0 1% 1% 1%;
+}
+
+#items {
+    grid-row: 4 / 6;
+    grid-column: 5 / 6;
+    padding: 0 1% 1% 1%;
+}
+
+#otherEquipment {
+    grid-column: 3 / 5;
+    padding: 0 1% 1% 1%;
+}
+
+textarea {
+    width: 100%;
+    height: 80%;
+    background: transparent;
+    border: none;
+    resize: none;
+}
+
+#abilities textarea {
+    height: 82%;
+}
+
+#items textarea {
+    height: 88%;
+}
+
+#languages textarea {
+    height: 52%;
+}
+
+#helpInfo {
+    height: 100%;
+    width: 20%;
+    background: linear-gradient(to right, rgba(27, 27, 30, 0.7), rgba(27, 27, 30, 0.7));
+    border: 1px solid black;
+    border-radius: 1rem;
+    margin-right: 1%;
+    color: #fbfffe;
+    padding: 0 1% 1% 1%;
+    font-size: calc(1rem + 0.3vw);
+}
+
+h2 {
+    text-align: center;
+    font-size: calc(1.5rem + 0.6vw);
+    text-decoration: underline;
+}
+
+input[type="submit"] {
+    position: absolute;
+    bottom: 3%;
+    left: 22%;
+    padding: 1%;
+    font-size: calc(1rem + 0.4vw);
+    font-family: Tiamat Regular;
+    transform: scaleX(1.5);
+    background-color: #faa916;
+    border: none;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+}
