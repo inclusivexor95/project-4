@@ -1,14 +1,49 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './CharCreate.css';
+import charactersService from '../../utils/charactersService'
 
 
-const CharCreate = (props) => {
+const CharCreate = ({ option, history }) => {
     const [charData, setCharData] = useState({
-        race: null,
-        subrace: '',
-        class: null,
-        subclass: ''
+        name: '',
+        race: '',
+        class: '',
+        stats: [0, 0, 0, 0, 0, 0],
+        items: ['', '', ''],
+        money: [0, 0, 0, 0, 0],
+        alignment: ''
     });
+
+    function handleChange(e) {
+        setCharData({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            console.log(charData);
+            await charactersService.create(charData);
+
+            this.props.history.push('/characters');
+        } catch (err) {
+            
+            // alert('Invalid Credentials!');
+        }
+    }
+
+    useEffect(() => {
+        if (option === 'detail') {
+            const fetchChar = async () => {
+                const result = await charactersService.detail();
+    
+                console.log(result);
+                
+            };
+            fetchChar();
+        }
+    }, []);
 
     return (
         <div className="CharCreate">
@@ -20,10 +55,10 @@ const CharCreate = (props) => {
                 <p>4. Choose an ALIGNMENT and SEX for you character. These are located in the top right of the sheet. LEVEL will default to 1 and EXP to 0 but you may adjust those if needed.</p>
                 <p>5. Now all that's left to do is fill in the remaining info for your character in the large boxes and you're good to go!</p>
             </div>
-            <form action="">
+            <form id="charCreateForm" onSubmit={handleSubmit}>
                 <div id="genInfo">
                     <div id="charName">
-                        <input type="text" id="nameInput" name="name"/>
+                        <input type="text" id="nameInput" name="name" onChange={handleChange}/>
                         <label htmlFor="nameInput">CHARACTER NAME</label>
                     </div>
                     <div id="raceClass">
@@ -32,12 +67,12 @@ const CharCreate = (props) => {
                             <input type="text" id="charLevel" name="level"/>
                         </div>
                         <div id="classContainer">
-                            <input type="text" id="charClass" name="class"/>
+                            <input type="text" id="charClass" name="class" onChange={handleChange}/>
                             <label htmlFor="charClass">CLASS</label>
                         </div>
                         <div id="alignmentContainer">
                             <label htmlFor="charAlign">ALIGNMENT</label>
-                            <select name="alignment" id="charAlign">
+                            <select name="alignment" id="charAlign" onChange={handleChange}>
                                 <option value=""></option>
                                 <option value="lg">LG</option>
                                 <option value="ln">LN</option>
@@ -51,7 +86,7 @@ const CharCreate = (props) => {
                             </select>
                         </div>
                         <div id="raceContainer">
-                            <input type="text" id="charRace" name="race"/>
+                            <input type="text" id="charRace" name="race" onChange={handleChange}/>
                             <label htmlFor="charRace">RACE</label>
                         </div>
                         <div id="genderContainer">
@@ -71,33 +106,33 @@ const CharCreate = (props) => {
                 </div>
                 <div id="stats">
                     <div id="str">
-                        <label htmlFor="">STRENGTH</label>
-                        <input type="text"/>
+                        <label htmlFor="stats[0]">STRENGTH</label>
+                        <input type="number" id="stats[0]" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
                     <div id="dex">
-                        <label htmlFor="">DEXTERITY</label>
-                        <input type="text"/>
+                        <label htmlFor="stats[1]">DEXTERITY</label>
+                        <input type="number" id="stats[1]" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
                     <div id="con">
-                        <label htmlFor="">CONSTITUTION</label>
-                        <input type="text"/>
+                        <label htmlFor="stats[2]">CONSTITUTION</label>
+                        <input type="number" id="stats[2]" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
                     <div id="wis">
-                        <label htmlFor="">WISDOM</label>
-                        <input type="text"/>
+                        <label htmlFor="stats[3]">WISDOM</label>
+                        <input type="number" id="stats[3]" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
                     <div id="int">
-                        <label htmlFor="">INTELLIGENCE</label>
-                        <input type="text"/>
+                        <label htmlFor="stats[4]">INTELLIGENCE</label>
+                        <input type="number" id="stats[4]" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
                     <div id="cha">
-                        <label htmlFor="">CHARISMA</label>
-                        <input type="text"/>
+                        <label htmlFor="stats[5]">CHARISMA</label>
+                        <input type="number" id="stats[5]" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
                 </div>
@@ -157,8 +192,8 @@ const CharCreate = (props) => {
                             <p>SAVING THROWS</p>
                         </div>
                         <div id="passPerc">
-                            <p id="passPercValue"></p>
-                            <p>PASSIVE WISDOM(PERCEPTION)</p>
+                            <input type="text" id="passPercValue"/>
+                            <label htmlFor="passPercValue">PASSIVE WISDOM(PERCEPTION)</label>
                         </div>
                     </div>
                     <div id="skills">
@@ -322,15 +357,35 @@ const CharCreate = (props) => {
                 </div>
                 <div id="items">
                     <p>ITEMS</p>
-                    <textarea name="" id=""></textarea>
+                    <textarea name="items[0]" id="" onChange={handleChange}></textarea>
                 </div>
                 <div id="treasures">
                     <p>TREASURES</p>
-                    <textarea name="" id=""></textarea>
+                    <textarea name="items[1]" id="" onChange={handleChange}></textarea>
+                    <div className="Currency" id="copperContainer">
+                        <label htmlFor="copper">CP</label>
+                        <input type="number" id="copper" name="money[0]" onChange={handleChange}/>
+                    </div>
+                    <div className="Currency" id="silverContainer">
+                        <label htmlFor="silver">SP</label>
+                        <input type="number" id="silver" name="money[1]" onChange={handleChange}/>
+                    </div>
+                    <div className="Currency" id="electrumContainer">
+                        <label htmlFor="electrum">EP</label>
+                        <input type="number" id="electrum" name="money[2]" onChange={handleChange}/>
+                    </div>
+                    <div className="Currency" id="goldContainer">
+                        <label htmlFor="gold">GP</label>
+                        <input type="number" id="gold" name="money[3]" onChange={handleChange}/>
+                    </div>
+                    <div className="Currency" id="platinumContainer">
+                        <label htmlFor="platinum">PP</label>
+                        <input type="number" id="platinum" name="money[4]" onChange={handleChange}/>
+                    </div>
                 </div>
                 <div id="otherEquipment">
                     <p>OTHER EQUIPMENT</p>
-                    <textarea name="" id=""></textarea>
+                    <textarea name="items[2]" id="" onChange={handleChange}></textarea>
                 </div>
                 <input type="submit" value="DONE"/>
             </form>

@@ -57,7 +57,6 @@ function create(req, res) {
 function index(req, res) {
     User.findOne({id: req.user.id})
     .populate('characters').exec(function(err, user) {
-        // console.log(user)
         res.json(user.characters);
     });
 }
@@ -71,4 +70,11 @@ function charCreation(req, res) {
 
 function edit(req, res) {
     res.render('api/createCharacter');
+}
+
+function detail(req, res) {
+    Character.findOne({id: req.params.id})
+    .then(function(character) {
+        res.json(character);
+    });
 }

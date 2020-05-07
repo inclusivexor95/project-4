@@ -137,9 +137,10 @@ class App extends Component {
                 user={this.state.user}
                 />
             }/>
-            <Route path='/characters' render={() => 
+            <Route path='/characters' render={({ history }) => 
                 <CharPage
                 user={this.state.user}
+                history={history}
                 handleLogout={this.handleLogout}
                 />
             }/>

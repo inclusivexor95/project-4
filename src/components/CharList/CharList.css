@@ -1,0 +1,39 @@
+
+.CharList {
+    width: 100%;
+    text-align: center;
+    /* position: relative; */
+    /* padding-bottom: 10vh; */
+    height: calc(100% - 5vh);
+}
+
+#charactersList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 80%;
+    /* margin-bottom: 5%; */
+}
+
+.CharList a {
+    background-color: #faa916;
+    font-family: Tiamat Regular;
+    color: #1b1b1e;
+    padding: 2%;
+    font-size: calc(1.3rem + 0.3vw);
+    height: 10%;
+    /* margin-top: 5%; */
+    /* position: absolute; */
+    /* margin: 20vh; */
+}
+
+#charactersList > div {
+    background-color: rgba(27, 27, 30, 0.5);
+    margin: 3%;
+    width: calc(82% / 3);
+    height: calc(88% / 2);
+    text-align: left;
+    padding: 2%;
+    font-size: calc(1rem + 0.5vw);
+    font-family: Tiamat Alt;
+}

@@ -6,7 +6,7 @@
     position: relative;
 }
 
-form {
+form#charCreateForm {
     max-width: 70vh;
     background-size: 100% 100%;
     background-image: url(/assets/scrollBackground.jpg);
@@ -19,8 +19,13 @@ form {
     border-radius: 1rem;
 }
 
-form input[type="text"] {
+form input[type="text"], form input[type="number"] {
     background-color: rgba(109, 103, 110, 0.5);
+    border: 1px solid transparent;
+}
+
+form input[type="text"]:hover, form input[type="number"]:hover {
+    border: 1px solid #1b1b1e;
 }
 
 li {
@@ -157,6 +162,9 @@ form div {
 #currentHitPoints {
     width: 100%;
     height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #passive {
@@ -195,6 +203,12 @@ form div {
 
 #passPerc {
     height: 20%;
+    display: flex;
+    /* justify-content: left; */
+}
+
+#passPercValue {
+    width: 20%;
 }
 
 #initiative, #speed {
@@ -331,6 +345,43 @@ form div {
     grid-row: 5 / 6;
     grid-column: 1 / 3;
     padding: 0 1% 1% 1%;
+    position: relative;
+    text-align: right;
+}
+
+#treasures p {
+    text-align: center;
+}
+
+#treasures input {
+    width: 65%;
+    margin-left: 10%;
+}
+
+.Currency {
+    position: absolute;
+    left: 0;
+    width: 35%;
+}
+
+#copperContainer {
+    top: 20%;
+}
+
+#silverContainer {
+    top: 35%;
+}
+
+#electrumContainer {
+    top: 50%;
+}
+
+#goldContainer {
+    top: 65%;
+}
+
+#platinumContainer {
+    top: 80%;
 }
 
 #items {
@@ -350,6 +401,10 @@ textarea {
     background: transparent;
     border: none;
     resize: none;
+}
+
+#treasures textarea {
+    width: 60%;
 }
 
 #abilities textarea {

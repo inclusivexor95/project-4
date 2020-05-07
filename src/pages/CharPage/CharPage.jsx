@@ -6,23 +6,30 @@ import CharCreate from '../../components/CharCreate/CharCreate';
 import CharList from '../../components/CharList/CharList';
 
 
-const CharPage = (props) => {
+const CharPage = ({ user, handleLogout, history }) => {
     return (
         <div className="CharPage">
             <NavBar
-                user={props.user}
-                handleLogout={props.handleLogout}
+                user={user}
+                handleLogout={handleLogout}
             />
 
             <Switch>
             <Route exact path='/characters' render={() => 
                 <CharList
-
+                    history={history}
                 />
             }/>
             <Route exact path='/characters/new' render={() => 
                 <CharCreate
-                    
+                    option='create'
+                    history={history}
+                />
+            }/>
+            <Route exact path='/characters/:charId' render={() => 
+                <CharCreate
+                    option='detail'
+                    history={history}
                 />
             }/>
             </Switch>
