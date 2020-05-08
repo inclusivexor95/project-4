@@ -18,7 +18,6 @@ const CharList = ({ history }) => {
                 <p>Name: ${charArray[charNum].name}</p>
                 <p>Race: ${charArray[charNum].race}</p>
                 <p>Class: ${charArray[charNum].class}</p>
-                <p>Class: ${charArray[charNum].alignment}</p>
                 <button id="${charArray[charNum]._id}">Details</button>
             </div>`;
     }

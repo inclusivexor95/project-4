@@ -8,7 +8,6 @@ import DiceRollPage from '../DiceRollPage/DiceRollPage';
 // import HighScoresPage from '../HighScoresPage/HighScoresPage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
-import scoresService from '../../utils/scoresService';
 import userService from '../../utils/userService';
 import tokenService from '../../utils/tokenService';
 import CharPage from '../CharPage/CharPage';
@@ -32,47 +31,7 @@ class App extends Component {
         return Math.ceil(Math.random() * sides);
     }
 
-    // getInitialState() {
-    //     return {
-        
-    //     selColorIdx: 0,
-    //     guesses: [this.getNewGuess()],
-    //     code: this.genCode(),
-    //     elapsedTime: 0,
-    //     isTiming: true
-    //     };
-    // }
-
-    // getNewGuess() {
-    //     return {
-    //     code: [null, null, null, null],
-    //     score: {
-    //         perfect: 0,
-    //         almost: 0
-    //     }
-    //     };
-    // }
-
-    // genCode() {
-    //     let numColors = this.state && colors[this.state.difficulty].length;
-    //     numColors = numColors || 4;
-    //     return new Array(4).fill().map(dummy => Math.floor(Math.random() * numColors));
-    // }
-
-    // getWinTries() {
-    //     // if winner, return num guesses, otherwise 0 (no winner)
-    //     let lastGuess = this.state.guesses.length - 1;
-    //     return this.state.guesses[lastGuess].score.perfect === 4 ? lastGuess + 1 : 0;
-    // }
-
-    // isHighScore = (guessesCopy) => {
-    //     let lastScore = this.state.scores[this.state.scores.length - 1];
-    //     return (guessesCopy.length < lastScore.numGuesses || (
-    //     guessesCopy.length === lastScore.numGuesses &&
-    //     this.state.elapsedTime < lastScore.seconds
-    //     ));
-    // }
-
+ 
     /*--- Callback Methods ---*/
 
     handleDieClick = (die) => {
@@ -109,10 +68,6 @@ class App extends Component {
 
     /*--- Lifecycle Methods ---*/
 
-    // async componentDidMount() {
-    //     const scores = await scoresService.index();
-    //     this.setState({ scores });
-    // }
 
     render() {
         // let winTries = this.getWinTries();
@@ -137,9 +92,10 @@ class App extends Component {
                 user={this.state.user}
                 />
             }/>
-            <Route path='/characters' render={({ history }) => 
+            <Route path='/characters' render={({ history, match }) => 
                 <CharPage
                 user={this.state.user}
+                match={match}
                 history={history}
                 handleLogout={this.handleLogout}
                 />

@@ -72,9 +72,9 @@ function edit(req, res) {
     res.render('api/createCharacter');
 }
 
-function detail(req, res) {
-    Character.findOne({id: req.params.id})
-    .then(function(character) {
-        res.json(character);
-    });
-}
+// function detail(req, res) {
+//     Character.findOne({_id: req.params.id})
+//     .then(function(character) {
+//         res.json(character);
+//     });
+// }

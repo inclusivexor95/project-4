@@ -3,10 +3,10 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    position: relative;
 }
 
 form#charCreateForm {
+    position: relative;
     max-width: 70vh;
     background-size: 100% 100%;
     background-image: url(/assets/scrollBackground.jpg);
@@ -37,7 +37,7 @@ ul li input[type="text"] {
 }
 
 form input[type="text"]:hover {
-    cursor: pointer;
+    cursor: text;
 }
 
 form div {
@@ -440,8 +440,8 @@ h2 {
 input[type="submit"] {
     position: absolute;
     bottom: 3%;
-    left: 22%;
-    padding: 1%;
+    left: -25%;
+    padding: 1.5%;
     font-size: calc(1rem + 0.4vw);
     font-family: Tiamat Regular;
     transform: scaleX(1.5);
@@ -451,4 +451,28 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     cursor: pointer;
+}
+
+#deleteCharContainer {
+    position: absolute;
+    top: 0;
+    right: -20%;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: calc(1rem + 0.2vw);
+    color: #fbfffe;
+    border: none;
+    /* background-color: rgba(27, 27, 30, 0.7); */
+    width: 20%;
+    border-radius: 0.5rem;
+}
+
+#deleteCharContainer div {
+    border: none;
+    padding: 0 2% 2% 2%;
+    visibility: hidden;
+}
+
+#deleteCharContainer div button {
+    margin: 0 15% 10% 15%;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar'
 import './CharPage.css';
@@ -7,11 +7,19 @@ import CharList from '../../components/CharList/CharList';
 
 
 const CharPage = ({ user, handleLogout, history }) => {
+
+    const [backToChars, setBackToChars] = useState(false);
+
+    const addBackToNav = () => {
+        setBackToChars(true);
+    }
+
     return (
         <div className="CharPage">
             <NavBar
                 user={user}
                 handleLogout={handleLogout}
+                backToChars={backToChars}
             />
 
             <Switch>
@@ -24,12 +32,15 @@ const CharPage = ({ user, handleLogout, history }) => {
                 <CharCreate
                     option='create'
                     history={history}
+                    addBackToNav={addBackToNav}
                 />
             }/>
-            <Route exact path='/characters/:charId' render={() => 
+            <Route exact path='/characters/:charId' render={({ match }) => 
                 <CharCreate
+                    match={match}
                     option='detail'
                     history={history}
+                    addBackToNav={addBackToNav}
                 />
             }/>
             </Switch>

@@ -3,46 +3,128 @@ import './CharCreate.css';
 import charactersService from '../../utils/charactersService'
 
 
-const CharCreate = ({ option, history }) => {
+const CharCreate = ({ history, match, option }) => {
     const [charData, setCharData] = useState({
         name: '',
         race: '',
         class: '',
         stats: [0, 0, 0, 0, 0, 0],
+        // str: 0,
+        // dex: 0,
+        // con: 0,
+        // wis: 0,
+        // int: 0,
+        // cha: 0,
         items: ['', '', ''],
+        // items: '',
+        // treasures: '',
+        // otherEquipment: '',
         money: [0, 0, 0, 0, 0],
         alignment: ''
     });
 
     function handleChange(e) {
-        setCharData({
-            [e.target.name]: e.target.value
-        })
-    }
+        console.log(e.target.className);
+        let newDataObject = {};
+        if (e.target.className === 'Stat') {
+            console.log('working');
+            let currentStats = charData.stats;
+            const index = parseInt(e.target.name.slice(6, 7));
+            currentStats[index] = e.target.value;
+            newDataObject = {stats: currentStats};
+        }
+        else if (e.target.className === 'Item') {
+            let currentItems = charData.items;
+            const index = parseInt(e.target.name.slice(6, 7));
+            currentItems[index] = e.target.value;
+            newDataObject = {items: currentItems};
+        }
+        else if (e.target.className === 'Munnee') {
+            let currentMoney = charData.money;
+            const index = parseInt(e.target.name.slice(6, 7));
+            currentMoney[index] = e.target.value;
+            newDataObject = {money: currentMoney};
+        }
+        else {
+            newDataObject = {[e.target.name]: e.target.value};
+        };
+
+        const newCharData = {...charData, ...newDataObject};
+
+        setCharData(newCharData);
+        // setCharData((prevState) => {
+        //     prevState[e.target.id] = e.target.value;
+        //     return prevState;
+        // })
+        console.log(charData);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(charData);
-            await charactersService.create(charData);
+            if (option === 'create') {
+                await charactersService.create(charData);
+            };
+            if (option === 'detail') {
+                await charactersService.update(match.params.charId, charData);
+            };
+            history.push('/characters');
+        } catch (err) {
+            
+            // alert('Invalid Credentials!');
+        }
+    };
 
-            this.props.history.push('/characters');
+    const handleDelete = async (e) => {
+        try {
+            
+            if (option === 'detail') {
+                await charactersService.byeBye(match.params.charId);
+            };
+            
+            history.push('/characters');
         } catch (err) {
             
             // alert('Invalid Credentials!');
         }
     }
 
+    const updateState = (ajaxCharData) => {
+        setCharData({
+            name: ajaxCharData.name,
+            race: ajaxCharData.race,
+            class: ajaxCharData.class,
+            stats: ajaxCharData.stats,
+            items: ajaxCharData.items,
+            money: ajaxCharData.money,
+            alignment: ajaxCharData.alignment
+        });
+    }; 
+
+    const showDelete = (e) => {
+        const parentDiv = e.target.parentElement;
+        parentDiv.style["background-color"] = 'rgba(27, 27, 30, 0.7)';
+        parentDiv.children[1].style["visibility"] = 'visible';
+        // console.log(charData.stats);
+    };
+
+    const hideDelete = (e) => {
+        const parentDiv = e.target.parentElement;
+        parentDiv.style["visibility"] = 'hidden';
+        parentDiv.parentElement.style["background-color"] = 'transparent';
+    }
+
     useEffect(() => {
         if (option === 'detail') {
             const fetchChar = async () => {
-                const result = await charactersService.detail();
-    
-                console.log(result);
+                const result = await charactersService.detail(match.params.charId);
+
+                // console.log(result);
                 
+                updateState(result);
             };
             fetchChar();
-        }
+        };
     }, []);
 
     return (
@@ -58,8 +140,8 @@ const CharCreate = ({ option, history }) => {
             <form id="charCreateForm" onSubmit={handleSubmit}>
                 <div id="genInfo">
                     <div id="charName">
-                        <input type="text" id="nameInput" name="name" onChange={handleChange}/>
-                        <label htmlFor="nameInput">CHARACTER NAME</label>
+                        <input type="text" id="name" value={charData.name} name="name" onChange={handleChange}/>
+                        <label htmlFor="name">CHARACTER NAME</label>
                     </div>
                     <div id="raceClass">
                         <div id="levelContainer">
@@ -67,12 +149,12 @@ const CharCreate = ({ option, history }) => {
                             <input type="text" id="charLevel" name="level"/>
                         </div>
                         <div id="classContainer">
-                            <input type="text" id="charClass" name="class" onChange={handleChange}/>
-                            <label htmlFor="charClass">CLASS</label>
+                            <input type="text" id="class" value={charData.class} name="class" onChange={handleChange}/>
+                            <label htmlFor="class">CLASS</label>
                         </div>
                         <div id="alignmentContainer">
                             <label htmlFor="charAlign">ALIGNMENT</label>
-                            <select name="alignment" id="charAlign" onChange={handleChange}>
+                            <select name="alignment" id="charAlign" value={charData.alignment} onChange={handleChange}>
                                 <option value=""></option>
                                 <option value="lg">LG</option>
                                 <option value="ln">LN</option>
@@ -86,8 +168,8 @@ const CharCreate = ({ option, history }) => {
                             </select>
                         </div>
                         <div id="raceContainer">
-                            <input type="text" id="charRace" name="race" onChange={handleChange}/>
-                            <label htmlFor="charRace">RACE</label>
+                            <input type="text" id="race" value={charData.race} name="race" onChange={handleChange}/>
+                            <label htmlFor="race">RACE</label>
                         </div>
                         <div id="genderContainer">
                             <label htmlFor="charGender">SEX</label>
@@ -105,34 +187,34 @@ const CharCreate = ({ option, history }) => {
                     </div>
                 </div>
                 <div id="stats">
-                    <div id="str">
-                        <label htmlFor="stats[0]">STRENGTH</label>
-                        <input type="number" id="stats[0]" onChange={handleChange}/>
+                    <div id="strContainer">
+                        <label htmlFor="str">STRENGTH</label>
+                        <input type="number" id="str" name="stats[0]" value={charData.stats[0]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
-                    <div id="dex">
-                        <label htmlFor="stats[1]">DEXTERITY</label>
-                        <input type="number" id="stats[1]" onChange={handleChange}/>
+                    <div id="dexContainer">
+                        <label htmlFor="dex">DEXTERITY</label>
+                        <input type="number" id="dex" name="stats[1]" value={charData.stats[1]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
-                    <div id="con">
-                        <label htmlFor="stats[2]">CONSTITUTION</label>
-                        <input type="number" id="stats[2]" onChange={handleChange}/>
+                    <div id="conContainer">
+                        <label htmlFor="con">CONSTITUTION</label>
+                        <input type="number" id="con" name="stats[2]" value={charData.stats[2]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
-                    <div id="wis">
-                        <label htmlFor="stats[3]">WISDOM</label>
-                        <input type="number" id="stats[3]" onChange={handleChange}/>
+                    <div id="wisContainer">
+                        <label htmlFor="wis">WISDOM</label>
+                        <input type="number" id="wis" name="stats[3]" value={charData.stats[3]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
-                    <div id="int">
-                        <label htmlFor="stats[4]">INTELLIGENCE</label>
-                        <input type="number" id="stats[4]" onChange={handleChange}/>
+                    <div id="intContainer">
+                        <label htmlFor="int">INTELLIGENCE</label>
+                        <input type="number" id="int" name="stats[4]" value={charData.stats[4]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
-                    <div id="cha">
-                        <label htmlFor="stats[5]">CHARISMA</label>
-                        <input type="number" id="stats[5]" onChange={handleChange}/>
+                    <div id="chaContainer">
+                        <label htmlFor="con">CHARISMA</label>
+                        <input type="number" id="con" name="stats[5]" value={charData.stats[5]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier"></div>
                     </div>
                 </div>
@@ -357,37 +439,46 @@ const CharCreate = ({ option, history }) => {
                 </div>
                 <div id="items">
                     <p>ITEMS</p>
-                    <textarea name="items[0]" id="" onChange={handleChange}></textarea>
+                    <textarea name="items[0]" id="items" value={charData.items[0]} className="Item" onChange={handleChange}></textarea>
                 </div>
                 <div id="treasures">
                     <p>TREASURES</p>
-                    <textarea name="items[1]" id="" onChange={handleChange}></textarea>
+                    <textarea name="items[1]" id="treasures" value={charData.items[1]} className="Item" onChange={handleChange}></textarea>
                     <div className="Currency" id="copperContainer">
                         <label htmlFor="copper">CP</label>
-                        <input type="number" id="copper" name="money[0]" onChange={handleChange}/>
+                        <input type="number" id="copper" name="money[0]" value={charData.money[0]} className="Munnee" onChange={handleChange}/>
                     </div>
                     <div className="Currency" id="silverContainer">
                         <label htmlFor="silver">SP</label>
-                        <input type="number" id="silver" name="money[1]" onChange={handleChange}/>
+                        <input type="number" id="silver" name="money[1]" value={charData.money[1]} className="Munnee" onChange={handleChange}/>
                     </div>
                     <div className="Currency" id="electrumContainer">
                         <label htmlFor="electrum">EP</label>
-                        <input type="number" id="electrum" name="money[2]" onChange={handleChange}/>
+                        <input type="number" id="electrum" name="money[2]" value={charData.money[2]} className="Munnee" onChange={handleChange}/>
                     </div>
                     <div className="Currency" id="goldContainer">
                         <label htmlFor="gold">GP</label>
-                        <input type="number" id="gold" name="money[3]" onChange={handleChange}/>
+                        <input type="number" id="gold" name="money[3]" value={charData.money[3]} className="Munnee" onChange={handleChange}/>
                     </div>
                     <div className="Currency" id="platinumContainer">
                         <label htmlFor="platinum">PP</label>
-                        <input type="number" id="platinum" name="money[4]" onChange={handleChange}/>
+                        <input type="number" id="platinum" name="money[4]" value={charData.money[4]} className="Munnee" onChange={handleChange}/>
                     </div>
                 </div>
                 <div id="otherEquipment">
                     <p>OTHER EQUIPMENT</p>
-                    <textarea name="items[2]" id="" onChange={handleChange}></textarea>
+                    <textarea name="items[2]" id="otherEquipment" value={charData.items[2]} className="Item" onChange={handleChange}></textarea>
                 </div>
                 <input type="submit" value="DONE"/>
+                <div id="deleteCharContainer">
+                    <button type="button" onClick={showDelete} id="deleteChar" >x</button>
+                    <div>
+                        <p>Are you sure you want to delete this character? This cannot be undone!</p>
+                        <button type="button" onClick={handleDelete} id="yesDelete">YES</button>
+                        <button type="button" onClick={hideDelete} id="noDelete">NO</button>
+                    </div>
+                </div>
+
             </form>
         </div>
     );
