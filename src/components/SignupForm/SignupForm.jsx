@@ -44,22 +44,26 @@ class SignupForm extends Component {
             <form className="form-horizontal" onSubmit={this.handleSubmit} >
             <div className="form-group">
                 <div className="col-sm-12">
-                <input type="text" className="form-control" placeholder="Name" value={this.state.name} name="name" onChange={this.handleChange} />
+                    <label htmlFor="name">Name: </label>
+                    <input type="text" className="form-control" id="name" value={this.state.name} name="name" onChange={this.handleChange} />
                 </div>
             </div>
             <div className="form-group">
                 <div className="col-sm-12">
-                <input type="email" className="form-control" placeholder="Email" value={this.state.email} name="email" onChange={this.handleChange} />
+                    <label htmlFor="email">Email: </label>
+                    <input type="email" className="form-control" id="email" value={this.state.email} name="email" onChange={this.handleChange} />
                 </div>
             </div>
             <div className="form-group">
                 <div className="col-sm-12">
-                <input type="password" className="form-control" placeholder="Password" value={this.state.password} name="password" onChange={this.handleChange} />
+                    <label htmlFor="password">Password: </label>
+                    <input type="password" className="form-control" id="password" value={this.state.password} name="password" onChange={this.handleChange} />
                 </div>
             </div>
             <div className="form-group">
                 <div className="col-sm-12">
-                <input type="password" className="form-control" placeholder="Confirm Password" value={this.state.passwordConf} name="passwordConf" onChange={this.handleChange} />
+                    <label htmlFor="passConfirm">Confirm Password: </label>
+                    <input type="password" className="form-control" id="passConfirm" value={this.state.passwordConf} name="passwordConf" onChange={this.handleChange} />
                 </div>
             </div>
             <div className="form-group">

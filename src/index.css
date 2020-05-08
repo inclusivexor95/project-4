@@ -77,6 +77,11 @@ body {
     align-content: flex-start;
 }
 
+.SignupPage {
+    width: 100%;
+    height: 85vh;
+}
+
 .CharPage {
     width: 100%;
     height: 85%;
