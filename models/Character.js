@@ -8,6 +8,9 @@ const characterSchema = new Schema(
             type: String,
             required: true
         },
+        level: Number,
+        experience: Number,
+        gender: String,
         race: String,
         class: String,
         stats: [Number],

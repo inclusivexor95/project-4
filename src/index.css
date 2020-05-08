@@ -27,9 +27,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 html {
     font-size: 62.5%;
     height: 100%;
-    /* background-image: linear-gradient(to top right, rgba(27, 27, 30, 0.85) 50%, rgba(150, 3, 26, 0.8)), url("/assets/dnd-wallpaper.jpg"); */
     background-image: linear-gradient(to top right, rgba(150, 3, 26, 0.8) -70%, rgba(27, 27, 30, 0.9), rgba(150, 3, 26, 0.8) 150%), url("/assets/dnd-wallpaper.jpg");
-    /* background-image: linear-gradient(to top right,rgba(75, 1.5, 13, 0.6), rgba(75, 1.5, 13, 0.6)), url("/assets/dnd-wallpaper.jpg"); */
     background-size: cover;
     font-family: Tiamat Alt;
 }
@@ -45,7 +43,6 @@ body {
 .NavBar {
     width: 100%;
     text-align: center;
-    /* margin-bottom: 5vh; */
     font-size: calc(1.2rem + 0.3vw);
     height: 5vh;
 }
@@ -60,8 +57,6 @@ body {
     align-content: flex-start;
     flex-wrap: wrap;
     height: 100%;
-    /* background-color: #1b1b1e; */
-    /* opacity: 0.5; */
 }
 
 .LandingPage {
@@ -93,11 +88,8 @@ body {
 
 h1 {
     font-size: calc(2.5rem + 2vw);
-    /* font-family: Tiamat Regular; */
     font-family: Tiamat Regular;
     transform: scaleX(1.2);
-    /* max-width: 100%; */
-    /* width: 100%; */
     margin: 0;
     height: 15%;
     display: flex;
@@ -113,7 +105,6 @@ a {
 
 button {
     background-color: #faa916;
-    /* border: 1px solid #1b1b1e; */
     border: none;
     font-family: Tiamat Regular;
 }
@@ -124,7 +115,6 @@ button:hover {
 
 input[type="text"] {
     background-color: #6d676e;
-    /* border: 1px solid #1b1b1e; */
     border: none;
 }
 

@@ -15,9 +15,11 @@
 
 .SignupPage form div {
     border: none;
+    text-align: right;
+    /* width: 80%; */
 }
 
-.SignupPage form input {
+.SignupPage form input[type="text"] {
     background-color: #fbfffe;
     border: none;
 }

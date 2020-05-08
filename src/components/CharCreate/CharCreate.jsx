@@ -7,24 +7,34 @@ const CharCreate = ({ history, match, option }) => {
     const [charData, setCharData] = useState({
         name: '',
         race: '',
+        level: 1,
+        exp: 0,
         class: '',
+        gender: '',
         stats: [0, 0, 0, 0, 0, 0],
-        // str: 0,
-        // dex: 0,
-        // con: 0,
-        // wis: 0,
-        // int: 0,
-        // cha: 0,
         items: ['', '', ''],
-        // items: '',
-        // treasures: '',
-        // otherEquipment: '',
         money: [0, 0, 0, 0, 0],
         alignment: ''
     });
 
+    const modifierArray = [-5, -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
+    const proficiencyArray = [2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6];
+    const experienceArray = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
+
+
+    const modifierValue = (statValue, bonus=0) => {
+        if (statValue < 0) {
+            return bonus - 5;
+        }
+        else if (statValue > 30) {
+            return bonus + 10;
+        }
+        else {
+            return bonus + modifierArray[statValue];
+        };
+    };
+
     function handleChange(e) {
-        console.log(e.target.className);
         let newDataObject = {};
         if (e.target.className === 'Stat') {
             console.log('working');
@@ -45,18 +55,37 @@ const CharCreate = ({ history, match, option }) => {
             currentMoney[index] = e.target.value;
             newDataObject = {money: currentMoney};
         }
+        else if (e.target.name === 'exp') {
+            const expInt = parseInt(e.target.value);
+            if (!expInt && expInt !== 0) {
+                newDataObject = {[e.target.name]: 0};
+            }
+            else {
+                newDataObject = {[e.target.name]: parseInt(e.target.value)}
+            };
+        }
         else {
             newDataObject = {[e.target.name]: e.target.value};
+        };
+
+        if (e.target.name !== 'exp' && charData.exp < 355000) {
+            newDataObject['level'] = experienceArray.findIndex((breakpoint) => {
+                return (charData.exp < breakpoint);
+            });
+        }
+        else if (newDataObject.exp < 355000) {
+            
+            newDataObject['level'] = experienceArray.findIndex((breakpoint) => {
+                return (newDataObject.exp < breakpoint);
+            });
+        }
+        else {
+            newDataObject['level'] = 20;
         };
 
         const newCharData = {...charData, ...newDataObject};
 
         setCharData(newCharData);
-        // setCharData((prevState) => {
-        //     prevState[e.target.id] = e.target.value;
-        //     return prevState;
-        // })
-        console.log(charData);
     };
 
     const handleSubmit = async (e) => {
@@ -70,10 +99,10 @@ const CharCreate = ({ history, match, option }) => {
             };
             history.push('/characters');
         } catch (err) {
-            
-            // alert('Invalid Credentials!');
+
         }
     };
+
 
     const handleDelete = async (e) => {
         try {
@@ -84,17 +113,19 @@ const CharCreate = ({ history, match, option }) => {
             
             history.push('/characters');
         } catch (err) {
-            
-            // alert('Invalid Credentials!');
+
         }
     }
 
     const updateState = (ajaxCharData) => {
         setCharData({
             name: ajaxCharData.name,
+            level: ajaxCharData.level,
+            exp: ajaxCharData.exp,
             race: ajaxCharData.race,
             class: ajaxCharData.class,
             stats: ajaxCharData.stats,
+            gender: ajaxCharData.gender,
             items: ajaxCharData.items,
             money: ajaxCharData.money,
             alignment: ajaxCharData.alignment
@@ -105,7 +136,6 @@ const CharCreate = ({ history, match, option }) => {
         const parentDiv = e.target.parentElement;
         parentDiv.style["background-color"] = 'rgba(27, 27, 30, 0.7)';
         parentDiv.children[1].style["visibility"] = 'visible';
-        // console.log(charData.stats);
     };
 
     const hideDelete = (e) => {
@@ -118,9 +148,6 @@ const CharCreate = ({ history, match, option }) => {
         if (option === 'detail') {
             const fetchChar = async () => {
                 const result = await charactersService.detail(match.params.charId);
-
-                // console.log(result);
-                
                 updateState(result);
             };
             fetchChar();
@@ -146,7 +173,7 @@ const CharCreate = ({ history, match, option }) => {
                     <div id="raceClass">
                         <div id="levelContainer">
                             <label htmlFor="charLevel">LEVEL</label>
-                            <input type="text" id="charLevel" name="level"/>
+                            <input type="number" id="charLevel" value={charData.level} name="level"/>
                         </div>
                         <div id="classContainer">
                             <input type="text" id="class" value={charData.class} name="class" onChange={handleChange}/>
@@ -156,15 +183,15 @@ const CharCreate = ({ history, match, option }) => {
                             <label htmlFor="charAlign">ALIGNMENT</label>
                             <select name="alignment" id="charAlign" value={charData.alignment} onChange={handleChange}>
                                 <option value=""></option>
-                                <option value="lg">LG</option>
-                                <option value="ln">LN</option>
-                                <option value="le">LE</option>
-                                <option value="ng">NG</option>
-                                <option value="tn">TN</option>
-                                <option value="ne">NE</option>
-                                <option value="cg">CG</option>
-                                <option value="cn">CN</option>
-                                <option value="ce">CE</option>
+                                <option value="LG">LG</option>
+                                <option value="LN">LN</option>
+                                <option value="LE">LE</option>
+                                <option value="NG">NG</option>
+                                <option value="TN">TN</option>
+                                <option value="NE">NE</option>
+                                <option value="CG">CG</option>
+                                <option value="CN">CN</option>
+                                <option value="CE">CE</option>
                             </select>
                         </div>
                         <div id="raceContainer">
@@ -173,7 +200,7 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="genderContainer">
                             <label htmlFor="charGender">SEX</label>
-                            <select name="gender" id="charGender">
+                            <select name="gender" id="charGender" value={charData.gender} onChange={handleChange}>
                                 <option value=""></option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -181,7 +208,7 @@ const CharCreate = ({ history, match, option }) => {
                             </select>
                         </div>
                         <div id="expContainer">
-                            <input type="text" id="charExp" name="exp"/>
+                            <input type="text" id="charExp" value={charData.exp} name="exp" onChange={handleChange}/>
                             <label htmlFor="charExp">EXP</label>
                         </div>
                     </div>
@@ -190,32 +217,32 @@ const CharCreate = ({ history, match, option }) => {
                     <div id="strContainer">
                         <label htmlFor="str">STRENGTH</label>
                         <input type="number" id="str" name="stats[0]" value={charData.stats[0]} className="Stat" onChange={handleChange}/>
-                        <div className="Modifier"></div>
+                        <div className="Modifier">{modifierValue(charData.stats[0])}</div>
                     </div>
                     <div id="dexContainer">
                         <label htmlFor="dex">DEXTERITY</label>
                         <input type="number" id="dex" name="stats[1]" value={charData.stats[1]} className="Stat" onChange={handleChange}/>
-                        <div className="Modifier"></div>
+                        <div className="Modifier">{modifierValue(charData.stats[1])}</div>
                     </div>
                     <div id="conContainer">
                         <label htmlFor="con">CONSTITUTION</label>
                         <input type="number" id="con" name="stats[2]" value={charData.stats[2]} className="Stat" onChange={handleChange}/>
-                        <div className="Modifier"></div>
+                        <div className="Modifier">{modifierValue(charData.stats[2])}</div>
                     </div>
                     <div id="wisContainer">
                         <label htmlFor="wis">WISDOM</label>
                         <input type="number" id="wis" name="stats[3]" value={charData.stats[3]} className="Stat" onChange={handleChange}/>
-                        <div className="Modifier"></div>
+                        <div className="Modifier">{modifierValue(charData.stats[3])}</div>
                     </div>
                     <div id="intContainer">
                         <label htmlFor="int">INTELLIGENCE</label>
                         <input type="number" id="int" name="stats[4]" value={charData.stats[4]} className="Stat" onChange={handleChange}/>
-                        <div className="Modifier"></div>
+                        <div className="Modifier">{modifierValue(charData.stats[4])}</div>
                     </div>
                     <div id="chaContainer">
                         <label htmlFor="con">CHARISMA</label>
                         <input type="number" id="con" name="stats[5]" value={charData.stats[5]} className="Stat" onChange={handleChange}/>
-                        <div className="Modifier"></div>
+                        <div className="Modifier">{modifierValue(charData.stats[5])}</div>
                     </div>
                 </div>
                 <div id="main">
@@ -226,11 +253,11 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="armorClass">
                             <label htmlFor="armorClassValue">ARMOR CLASS</label>
-                            <input type="text" id="armorClassValue"/>
+                            <input type="text" value={10 + modifierValue(charData.stats[1])} id="armorClassValue"/>
                         </div>
                         <div id="proficiencyBonus">
                             <label htmlFor="proficiencyBonusValue">PROFICIENCY BONUS</label>
-                            <input type="text" id="proficiencyBonusValue"/>
+                            <input type="text" value={proficiencyArray[charData.level]} id="proficiencyBonusValue"/>
                         </div>
                         <div id="currentHitPoints">
                             <label htmlFor="currentHitPointsValue">CURRENT HIT POINTS</label>
@@ -242,46 +269,46 @@ const CharCreate = ({ history, match, option }) => {
                             <ul>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" value={modifierValue(charData.stats[0])} className="skillBonus"/>
                                     <p className="strSkill">Strength</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" value={modifierValue(charData.stats[1])} className="skillBonus"/>
                                     <p className="dexSkill">Dexterity</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[2])}/>
                                     <p className="conSkill">Constitution</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Wisdom</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Intelligence</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Charisma</p>
                                 </li>
                             </ul>
                             <p>SAVING THROWS</p>
                         </div>
                         <div id="passPerc">
-                            <input type="text" id="passPercValue"/>
+                            <input type="text" id="passPercValue" value={8 + modifierValue(charData.stats[3])}/>
                             <label htmlFor="passPercValue">PASSIVE WISDOM(PERCEPTION)</label>
                         </div>
                     </div>
                     <div id="skills">
                         <div id="speed">
                             <label htmlFor="speedValue">SPEED</label>
-                            <input type="text" id="speedValue"/>
+                            <input type="text" defaultValue="30" id="speedValue"/>
                         </div>
                         <div id="initiative">
                             <label htmlFor="initiativeValue">INITIATIVE</label>
@@ -292,92 +319,92 @@ const CharCreate = ({ history, match, option }) => {
                             <ul>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[1])}/>
                                     <p className="dexSkill">Acrobatics (Dex)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Animal Handling (Wis)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Arcana (Int)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[0])}/>
                                     <p className="strSkill">Athletics (Str)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Deception (Cha)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">History (Int)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Insight (Wis)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Intimidation (Cha)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Investigation (Int)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Medicine (Wis)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Nature (Int)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Perception(Wis)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Performance (Cha)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Persuasion (Cha)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Religion (Int)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[1])}/>
                                     <p className="dexSkill">Sleight of Hand (Dex)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[1])}/>
                                     <p className="dexSkill">Stealth (Dex)</p>
                                 </li>
                                 <li>
                                     <input type="checkbox"/> 
-                                    <input type="text" className="skillBonus"/>
+                                    <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Survival (Wis)</p>
                                 </li>
                             </ul>
@@ -443,7 +470,7 @@ const CharCreate = ({ history, match, option }) => {
                 </div>
                 <div id="treasures">
                     <p>TREASURES</p>
-                    <textarea name="items[1]" id="treasures" value={charData.items[1]} className="Item" onChange={handleChange}></textarea>
+                    <textarea name="items[1]" id="treasuresText" value={charData.items[1]} className="Item" onChange={handleChange}></textarea>
                     <div className="Currency" id="copperContainer">
                         <label htmlFor="copper">CP</label>
                         <input type="number" id="copper" name="money[0]" value={charData.money[0]} className="Munnee" onChange={handleChange}/>
@@ -467,7 +494,7 @@ const CharCreate = ({ history, match, option }) => {
                 </div>
                 <div id="otherEquipment">
                     <p>OTHER EQUIPMENT</p>
-                    <textarea name="items[2]" id="otherEquipment" value={charData.items[2]} className="Item" onChange={handleChange}></textarea>
+                    <textarea name="items[2]" id="otherEquipmentText" value={charData.items[2]} className="Item" onChange={handleChange}></textarea>
                 </div>
                 <input type="submit" value="DONE"/>
                 <div id="deleteCharContainer">

@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
-// import GamePage from '../../pages/GamePage/GamePage';
+import { Route, Switch } from 'react-router-dom';
 import LandingPage from '../LandingPage/LandingPage';
 import DiceRollPage from '../DiceRollPage/DiceRollPage';
-// import SettingsPage from '../SettingsPage/SettingsPage';
-// import HighScoresPage from '../HighScoresPage/HighScoresPage';
 import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
-import tokenService from '../../utils/tokenService';
 import CharPage from '../CharPage/CharPage';
 
 
@@ -17,12 +13,8 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-        // ...this.getInitialState(),
         rollChain: [],
         plusMinus: '+',
-        // difficulty: 'Easy',
-        // scores: [],
-        // Initialize user if there's a token, otherwise null
         user: userService.getUser()
         };
     }
@@ -30,9 +22,6 @@ class App extends Component {
     diceRoll(sides) {
         return Math.ceil(Math.random() * sides);
     }
-
- 
-    /*--- Callback Methods ---*/
 
     handleDieClick = (die) => {
         const currentRollChain = [...this.state.rollChain];
@@ -50,6 +39,9 @@ class App extends Component {
     }
 
     handleRoll = (numInput) => {
+        if (this.state.plusMinus === '-') {
+            numInput = 0 - numInput;
+        };
         const rollValue = this.state.rollChain.reduce((total, die) => {
             return total + this.diceRoll(parseInt(die.slice(1)));
         }, numInput);
@@ -66,28 +58,13 @@ class App extends Component {
         this.setState({user: userService.getUser()});
     }
 
-    /*--- Lifecycle Methods ---*/
-
-
     render() {
-        // let winTries = this.getWinTries();
         return (
         <div className="Wrapper">
             <h1>D&D Character Creator</h1>
             <Switch>
             <Route exact path='/' render={() =>
                 <LandingPage
-                // winTries={winTries}
-                // colors={colors[this.state.difficulty]}
-                // selColorIdx={this.state.selColorIdx}
-                // guesses={this.state.guesses}
-                // elapsedTime={this.state.elapsedTime}
-                // isTiming={this.state.isTiming}
-                // handleColorSelection={this.handleColorSelection}
-                // handleNewGameClick={this.handleNewGameClick}
-                // handlePegClick={this.handlePegClick}
-                // handleScoreClick={this.handleScoreClick}
-                // handleTimerUpdate={this.handleTimerUpdate}
                 handleLogout={this.handleLogout}
                 user={this.state.user}
                 />

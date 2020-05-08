@@ -10,27 +10,18 @@ require('./config/database');
 
 const port = process.env.PORT || 3001;
 
-// const docsRouter = require('./routes/docs');
 const charactersRouter = require('./routes/api/characters');
-// const loginRouter = require('./routes/api/login');
 const abilitiesRouter = require('./routes/api/abilities');
 const usersRouter = require('./routes/api/users');
 
 const app = express();
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// app.use('/', docsRouter);
-// app.use('/api', loginRouter);
 app.use('/api/abilities', abilitiesRouter);
 app.use('/api/users', usersRouter);
 app.use(require('./config/auth'));

@@ -5,28 +5,28 @@ import './DiceRollPage.css';
 import DiceRoll from '../../components/DiceRoll/DiceRoll';
 
 
-const DiceRollPage = (props) => {
+const DiceRollPage = ({ handleDieClick, handleLogout, rollChain, user, handlePlusMinus, plusMinus, handleRoll, rollResult }) => {
     return (
         <div className="DiceRollPage">
             <NavBar
-                user={props.user}
-                handleLogout={props.handleLogout}
+                user={user}
+                handleLogout={handleLogout}
             />
             <div className="DiceContainer D4"
-                onClick={() => props.handleDieClick('d4')}
+                onClick={() => handleDieClick('d4')}
             >
                 <div className="Die" id="d41"></div>
                 <div className="Die" id="d42"></div>
             </div>
             <div className="DiceContainer D6"
-                onClick={() => props.handleDieClick('d6')}
+                onClick={() => handleDieClick('d6')}
             >
                 <div className="Die" id="d61"></div>
                 <div className="Die" id="d62"></div>
                 <div className="Die" id="d63"></div>
             </div>
             <div className="DiceContainer D8"
-                onClick={() => props.handleDieClick('d8')}
+                onClick={() => handleDieClick('d8')}
             >
                 <div className="Die" id="d81"></div>
                 <div className="Die" id="d82"></div>
@@ -34,7 +34,7 @@ const DiceRollPage = (props) => {
                 <div className="Die" id="d84"></div>
             </div>
             <div className="DiceContainer D10"
-                onClick={() => props.handleDieClick('d10')}
+                onClick={() => handleDieClick('d10')}
             >
                 <div className="Die" id="d101"></div>
                 <div className="Die" id="d102"></div>
@@ -43,7 +43,7 @@ const DiceRollPage = (props) => {
                 <div className="Die" id="d105"></div>
             </div>
             <div className="DiceContainer D12"
-                onClick={() => props.handleDieClick('d12')}
+                onClick={() => handleDieClick('d12')}
             >
                 <div className="Die" id="d121"></div>
                 <div className="Die" id="d122"></div>
@@ -53,7 +53,7 @@ const DiceRollPage = (props) => {
                 <div className="Die" id="d126"></div>
             </div>
             <div className="DiceContainer D20"
-                onClick={() => props.handleDieClick('d20')}
+                onClick={() => handleDieClick('d20')}
             >
                 <div className="Die" id="d201"></div>
                 <div className="Die" id="d202"></div>
@@ -68,22 +68,12 @@ const DiceRollPage = (props) => {
             </div>
 
             <DiceRoll
-                rollChain={props.rollChain}
-                handlePlusMinus={props.handlePlusMinus}
-                plusMinus={props.plusMinus}
-                handleRoll={props.handleRoll}
-                rollResult={props.rollResult}
+                rollChain={rollChain}
+                handlePlusMinus={handlePlusMinus}
+                plusMinus={plusMinus}
+                handleRoll={handleRoll}
+                rollResult={rollResult}
             />
-            {/* <div className="RollInfo">
-                <p>I want to roll</p>
-                <input 
-                type="text" 
-                value={props.rollChain}
-                />
-                <button className="SmallButton">+</button>
-                <input type="text"/>
-                <button>Roll</button>
-            </div> */}
         </div>
     );
 }

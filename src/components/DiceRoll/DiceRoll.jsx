@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './DiceRoll.css';
 
 
-const DiceRoll = (props) => {
+const DiceRoll = ({ rollChain, handlePlusMinus, plusMinus, handleRoll, rollResult }) => {
     let counter = 1;
 
     const [inputData, setInputData] = useState({
@@ -10,9 +10,9 @@ const DiceRoll = (props) => {
         numInput: 0
     })
 
-    const rollText = props.rollChain.reduce((string, die, idx) => {
-        if (idx < props.rollChain.length - 1) {
-            if (props.rollChain[idx + 1] === props.rollChain[idx]) {
+    const rollText = rollChain.reduce((string, die, idx) => {
+        if (idx < rollChain.length - 1) {
+            if (rollChain[idx + 1] === rollChain[idx]) {
                 counter++;
                 return string;
             }
@@ -51,19 +51,19 @@ const DiceRoll = (props) => {
             value={rollText}
             />
             <button className="SmallButton"
-                onClick={props.handlePlusMinus}
-            >{props.plusMinus}</button>
+                onClick={handlePlusMinus}
+            >{plusMinus}</button>
             <input type="text" className="NumInput"
                 style={{border: inputData.invalidInput === true ? "3px solid red" : "none"}}
                 onChange={handleChange}
             />
             <button
-                onClick={props.rollChain.length !== 0 ? () => props.handleRoll(inputData.numInput) : null}
+                onClick={rollChain.length !== 0 ? () => handleRoll(inputData.numInput) : null}
             >Roll</button>
             <div>
             <p>Result:</p>
             <input type="text" className="RollResult"
-                value={props.rollResult}
+                value={rollResult}
             />
             </div>
         </div>
