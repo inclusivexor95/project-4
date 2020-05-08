@@ -7,11 +7,11 @@
 }
 
 .DiceContainer {
-    width: calc(88% / 3);
+    width: calc(70% / 3);
     background-color: rgba(55, 52, 55, 0.7);
     border-radius: 30px;
-    margin: 2%;
-    height: 30%;
+    margin: 2% 5%;
+    height: 28%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,8 +42,6 @@
     background-color: green;
     width: 20vh;
     height: 20vh;
-    /* border: 1px solid black; */
-    /* box-shadow: 5px 5px black; */
 }
 
 /* d4 */
