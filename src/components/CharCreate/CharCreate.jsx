@@ -14,7 +14,8 @@ const CharCreate = ({ history, match, option }) => {
         stats: [0, 0, 0, 0, 0, 0],
         items: ['', '', ''],
         money: [0, 0, 0, 0, 0],
-        alignment: ''
+        alignment: '',
+        
     });
 
     const modifierArray = [-5, -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
@@ -87,6 +88,10 @@ const CharCreate = ({ history, match, option }) => {
 
         setCharData(newCharData);
     };
+
+    const handleCheckbox = (e) => {
+        console.log(e.target.parentElement, e.target.value, e.target);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -312,7 +317,7 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="initiative">
                             <label htmlFor="initiativeValue">INITIATIVE</label>
-                            <input type="text" id="initiativeValue"/>
+                            <input type="text" id="initiativeValue" value={modifierValue(charData.stats[1])}/>
                         </div>
                         <div id="skillsContainer">
                             <p>SKILLS</p>
@@ -403,7 +408,7 @@ const CharCreate = ({ history, match, option }) => {
                                     <p className="dexSkill">Stealth (Dex)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox}/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Survival (Wis)</p>
                                 </li>
