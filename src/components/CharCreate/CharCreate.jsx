@@ -15,7 +15,7 @@ const CharCreate = ({ history, match, option }) => {
         items: ['', '', ''],
         money: [0, 0, 0, 0, 0],
         alignment: '',
-        
+        proficiencies: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
     });
 
     const modifierArray = [-5, -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
@@ -24,14 +24,16 @@ const CharCreate = ({ history, match, option }) => {
 
 
     const modifierValue = (statValue, bonus=0) => {
+        const proficiencyValue = bonus ? proficiencyArray[charData.level] : 0;
+
         if (statValue < 0) {
-            return bonus - 5;
+            return proficiencyValue - 5;
         }
         else if (statValue > 30) {
-            return bonus + 10;
+            return proficiencyValue + 10;
         }
         else {
-            return bonus + modifierArray[statValue];
+            return proficiencyValue + modifierArray[statValue];
         };
     };
 
@@ -89,8 +91,30 @@ const CharCreate = ({ history, match, option }) => {
         setCharData(newCharData);
     };
 
-    const handleCheckbox = (e) => {
-        console.log(e.target.parentElement, e.target.value, e.target);
+    const handleCheckbox = (e) => { 
+        let newDataObject = {proficiencies: charData.proficiencies};
+        console.log(charData.proficiencies, newDataObject);
+        // newDataObject[proficiencies] = charData.proficiencies; 
+        // let typeIndex;
+        // const type = e.target.parentElement.parentElement.parentElement.id;
+        // // console.log(type);
+
+        // if (type === 'saves') {
+        //     typeIndex = 0;
+        // };
+        // if (type === 'skillsContainer') {
+        //     typeIndex = 1;
+        // };
+        // if (e.target.checked) {
+        //     newDataObject.proficiencies[typeIndex][e.target.id] = 1;
+        // }
+        // else {
+        //     newDataObject.proficiencies[typeIndex][e.target.id] = 0;
+        // };
+
+        // const newCharData = {...charData, ...newDataObject};
+
+        // setCharData(newCharData);
     }
 
     const handleSubmit = async (e) => {
@@ -133,7 +157,8 @@ const CharCreate = ({ history, match, option }) => {
             gender: ajaxCharData.gender,
             items: ajaxCharData.items,
             money: ajaxCharData.money,
-            alignment: ajaxCharData.alignment
+            alignment: ajaxCharData.alignment,
+            proficiencies: ajaxCharData.proficiencies
         });
     }; 
 
@@ -254,7 +279,7 @@ const CharCreate = ({ history, match, option }) => {
                     <div id="defense">
                         <div id="hitPoints">
                             <label htmlFor="hitPointsValue">HIT POINTS</label>
-                            <input type="text" id="hitPointsValue"/>
+                            <input type="text" value={6 + (4 * (charData.level - 1)) + (modifierValue(charData.stats[2]) * (charData.level))} id="hitPointsValue"/>
                         </div>
                         <div id="armorClass">
                             <label htmlFor="armorClassValue">ARMOR CLASS</label>
@@ -273,32 +298,32 @@ const CharCreate = ({ history, match, option }) => {
                         <div id="saves">
                             <ul>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="0"/> 
                                     <input type="text" value={modifierValue(charData.stats[0])} className="skillBonus"/>
                                     <p className="strSkill">Strength</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="1"/> 
                                     <input type="text" value={modifierValue(charData.stats[1])} className="skillBonus"/>
                                     <p className="dexSkill">Dexterity</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="2"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[2])}/>
                                     <p className="conSkill">Constitution</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="3"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Wisdom</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="4"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Intelligence</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="5"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Charisma</p>
                                 </li>
@@ -323,92 +348,92 @@ const CharCreate = ({ history, match, option }) => {
                             <p>SKILLS</p>
                             <ul>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="0"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[1])}/>
                                     <p className="dexSkill">Acrobatics (Dex)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="1"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Animal Handling (Wis)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="2"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Arcana (Int)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="3"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[0])}/>
                                     <p className="strSkill">Athletics (Str)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="4"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Deception (Cha)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="5"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">History (Int)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="6"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Insight (Wis)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="7"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Intimidation (Cha)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="8"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Investigation (Int)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="9"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Medicine (Wis)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="10"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Nature (Int)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="11"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Perception(Wis)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="12"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Performance (Cha)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="13"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[5])}/>
                                     <p className="chaSkill">Persuasion (Cha)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="14"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[4])}/>
                                     <p className="intSkill">Religion (Int)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="15"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[1])}/>
                                     <p className="dexSkill">Sleight of Hand (Dex)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox"/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="16"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[1])}/>
                                     <p className="dexSkill">Stealth (Dex)</p>
                                 </li>
                                 <li>
-                                    <input type="checkbox" onChange={handleCheckbox}/> 
+                                    <input type="checkbox" onChange={handleCheckbox} id="17"/> 
                                     <input type="text" className="skillBonus" value={modifierValue(charData.stats[3])}/>
                                     <p className="wisSkill">Survival (Wis)</p>
                                 </li>

@@ -9,7 +9,7 @@ const characterSchema = new Schema(
             required: true
         },
         level: Number,
-        experience: Number,
+        exp: Number,
         gender: String,
         race: String,
         class: String,
@@ -21,7 +21,8 @@ const characterSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Ability'
         }],
-        spellSlots: Number
+        spellSlots: Number,
+        proficiencies: [[Number], [Number]]
     },
     {
         timestamps: true

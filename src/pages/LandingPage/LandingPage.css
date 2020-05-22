@@ -1,0 +1,16 @@
+#dieLogo {
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    height: 60vh;
+    width: 60vh;
+    margin: 8vh auto;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+polyline {
+    stroke: white;
+}
+
