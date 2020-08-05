@@ -1,0 +1,19 @@
+.RaceDrop {
+    position: absolute;
+    top: 13%;
+    left: 52%;
+    background-color: rgb(27, 27, 30);
+    width: 23%;
+}
+
+.RaceDrop > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: white;
+    border: 2px solid rgb(27, 27, 30);
+}
+
+.RaceDrop > div:hover {
+    border: 2px solid #faa916;
+}

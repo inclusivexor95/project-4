@@ -48,7 +48,7 @@ form input[type="text"]:hover {
 }
 
 #charName {
-    width: 40%;
+    width: 39.3%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -64,13 +64,13 @@ form input[type="text"]:hover {
 }
 
 #raceClass {
-    width: 60%;
+    width: 60.7%;
     display: flex;
     flex-wrap: wrap;
     border-bottom: 1px solid black;
 }
 
-#raceClass div {
+#raceClass > div {
     display: flex;
     flex-wrap: wrap;
     align-content: center;

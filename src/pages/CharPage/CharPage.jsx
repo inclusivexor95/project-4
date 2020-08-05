@@ -7,12 +7,11 @@ import CharList from '../../components/CharList/CharList';
 
 
 const CharPage = ({ user, handleLogout, history }) => {
-
     const [backToChars, setBackToChars] = useState(false);
 
     const addBackToNav = () => {
         setBackToChars(true);
-    }
+    };
 
     return (
         <div className="CharPage">
@@ -21,7 +20,6 @@ const CharPage = ({ user, handleLogout, history }) => {
                 handleLogout={handleLogout}
                 backToChars={backToChars}
             />
-
             <Switch>
             <Route exact path='/characters' render={() => 
                 <CharList
