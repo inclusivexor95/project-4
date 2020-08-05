@@ -17,3 +17,23 @@
 .RaceDrop > div:hover {
     border: 2px solid #faa916;
 }
+
+.ClassDrop {
+    position: absolute;
+    top: 4%;
+    left: 65%;
+    background-color: rgb(27, 27, 30);
+    width: 34%;
+}
+
+.ClassDrop > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: white;
+    border: 2px solid rgb(27, 27, 30);
+}
+
+.ClassDrop > div:hover {
+    border: 2px solid #faa916;
+}
