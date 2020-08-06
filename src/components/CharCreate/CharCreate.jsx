@@ -15,6 +15,7 @@ const CharCreate = ({ history, match, option }) => {
         healthTotal: 0,
         healthCurrent: 0,
         gender: '',
+        speed: 30,
         stats: [10, 10, 10, 10, 10, 10],
         extraStats: [0, 0, 0, 0, 0, 0],
         originalStats: [10, 10, 10, 10, 10, 10],
@@ -23,8 +24,6 @@ const CharCreate = ({ history, match, option }) => {
         alignment: '',
         proficiencies: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
     });
-
-    const [charHealth, setCharHealth] = useState(0);
 
     const [showRaceDrop, setShowRaceDrop] = useState(false);
     const [showClassDrop, setShowClassDrop] = useState(false);
@@ -282,7 +281,17 @@ const CharCreate = ({ history, match, option }) => {
         };
     };
 
+    const calculateHealth = (newCon, newLevel=charData.level) => {
+        if (charData.class) {
+            return classData[charData.class.split(' ')[0]].healthAvg * (newLevel + 1) - 2 + (modifierValue(newCon) * (newLevel));
+        }
+        else {
+            return 4 * (newLevel + 1) - 2 + (modifierValue(newCon) * (newLevel));
+        };
+    };
+
     function handleChange(e) {
+        console.log('change', charData.stats);
         let newDataObject = {};
         if (e.target.className === 'Stat') {
             let currentStats = charData.stats;
@@ -308,11 +317,8 @@ const CharCreate = ({ history, match, option }) => {
                 originalStats: currentOriginalStats
             };
 
-            if (index === 2 && charData.class) {
-                newDataObject['healthTotal'] = classData[charData.class.split(' ')[0]].healthAvg * (charData.level + 1) - 2 + (modifierValue(newDataObject.stats[2]) * (charData.level));
-            }
-            else if (index === 2) {
-                newDataObject['healthTotal'] = 4 * (charData.level + 1) - 2 + (modifierValue(newDataObject.stats[2]) * (charData.level));
+            if (index === 2) {
+                newDataObject['healthTotal'] = calculateHealth(newDataObject.stats[2]);
             };
 
         }
@@ -337,6 +343,19 @@ const CharCreate = ({ history, match, option }) => {
                 newDataObject = {[e.target.name]: expInt}
             };
         }
+        else if (e.target.name === 'healthCurrent') {
+            const currentHealthInt = parseInt(e.target.value);
+            
+            if (currentHealthInt > charData.healthTotal) {
+                newDataObject = {healthCurrent: charData.healthTotal};
+            }
+            else if (!currentHealthInt || currentHealthInt < 0) {
+                newDataObject = {healthCurrent: 0};
+            }
+            else {
+                newDataObject = {healthCurrent: currentHealthInt};
+            };
+        }
         else {
             newDataObject = {[e.target.name]: e.target.value};
         };
@@ -356,9 +375,8 @@ const CharCreate = ({ history, match, option }) => {
             newDataObject['level'] = 20;
         };
 
-        if (newDataObject.race && newDataObject.race !== charData.race) {
-            // newDataObject['extraStats'] = raceData[newDataObject.race];
-            
+        if (newDataObject.level && newDataObject.level !== charData.level) {
+            newDataObject['healthTotal'] = calculateHealth(charData.stats[2], newDataObject.level);
         };
 
         const newCharData = {...charData, ...newDataObject};
@@ -429,6 +447,7 @@ const CharCreate = ({ history, match, option }) => {
             stats: ajaxCharData.stats,
             extraStats: ajaxCharData.extraStats,
             originalStats: ajaxCharData.originalStats,
+            speed: ajaxCharData.speed,
             healthTotal: ajaxCharData.healthTotal,
             healthCurrent: ajaxCharData.healthCurrent,
             gender: ajaxCharData.gender,
@@ -469,11 +488,16 @@ const CharCreate = ({ history, match, option }) => {
         };
     }, []);
 
-    // useEffect(() => {
-    //     if (charData.name && charData.class) {
-    //         setCharHealth(classData[charData.class.split(' ')[0]].healthAvg * (charData.level + 1) - 2 + (modifierValue(charData.stats[2]) * (charData.level)));
-    //     };
-    // }, [charData]);
+    useEffect(() => {
+        let newDataObject = {};
+
+        if (charData.stats) {
+            newDataObject['healthTotal'] = calculateHealth(charData.stats[2]);
+        };
+
+        const newCharData = {...charData, ...newDataObject};
+        setCharData(newCharData);
+    }, [charData.stats]);
 
     return (
         <div className="CharCreate">
@@ -498,7 +522,8 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="classContainer">
                             <label htmlFor="class">CLASS</label>
-                            <input type="text" id="class" value={charData.class} name="class" onClick={classDrop} onChange={handleChange}/>
+                            <input type="text" id="class" value={charData.class} name="class" onClick={classDrop} readOnly/>
+
                             {showClassDrop ? <ClassDrop toggleDropDown={setShowClassDrop} charData={charData} setCharData={setCharData}/> : null}
                         </div>
                         <div id="alignmentContainer">
@@ -518,9 +543,9 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="raceContainer">
                             <label htmlFor="race">RACE</label>
-                            <input type="text" id="race" value={charData.race} name="race" onClick={raceDrop} onChange={handleChange}/>
+                            <input type="text" id="race" value={charData.race} name="race" onClick={raceDrop} readOnly/>
 
-                            {showRaceDrop ? <RaceDrop toggleDropDown={setShowRaceDrop} charData={charData} setCharData={setCharData}/> : null}
+                            {showRaceDrop ? <RaceDrop toggleDropDown={setShowRaceDrop} calculateHealth={calculateHealth} raceData={raceData} classData={classData} charData={charData} setCharData={setCharData}/> : null}
                         </div>
                         <div id="genderContainer">
                             <label htmlFor="charGender">SEX</label>
@@ -585,7 +610,7 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="currentHitPoints">
                             <label htmlFor="currentHitPointsValue">CURRENT HIT POINTS</label>
-                            <input type="text" value={charData.healthCurrent} id="currentHitPointsValue"/>
+                            <input type="text" name="healthCurrent" value={charData.healthCurrent} onChange={handleChange} id="currentHitPointsValue"/>
                         </div>
                     </div>
                     <div id="passive">
@@ -632,7 +657,7 @@ const CharCreate = ({ history, match, option }) => {
                     <div id="skills">
                         <div id="speed">
                             <label htmlFor="speedValue">SPEED</label>
-                            <input type="text" defaultValue="30" id="speedValue" readOnly className="readOnly"/>
+                            <input type="text" defaultValue="30" value={charData.speed} id="speedValue" readOnly className="readOnly"/>
                         </div>
                         <div id="initiative">
                             <label htmlFor="initiativeValue">INITIATIVE</label>

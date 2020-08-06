@@ -1,13 +1,23 @@
 import React from 'react';
 
 
-const RaceDrop = ({ toggleDropDown, charData, setCharData }) => {
+const RaceDrop = ({ toggleDropDown, charData, setCharData, raceData, calculateHealth }) => {
 
 
     const handleRaceClick = (e) => {
-        const newDataObject = {race: e.target.id};
-        const newCharData = {...charData, ...newDataObject};
+        let newDataObject = {race: e.target.id};
+        
+        if (newDataObject.race !== charData.race) {
+            newDataObject['extraStats'] = raceData[newDataObject.race].statBonus;
+            newDataObject['stats'] = charData.stats.map((stat, index) => {
+                return stat - raceData[charData.race].statBonus[index] + newDataObject['extraStats'][index];
+            });
+            newDataObject['speed'] = raceData[newDataObject.race].speed;
+            // newDataObject['healthTotal'] = calculateHealth(newDataObject.stats[2]);
+        };
 
+        
+        const newCharData = {...charData, ...newDataObject};
         setCharData(newCharData);
         toggleDropDown(false);
     };
