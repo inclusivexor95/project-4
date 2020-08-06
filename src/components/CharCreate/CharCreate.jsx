@@ -12,8 +12,12 @@ const CharCreate = ({ history, match, option }) => {
         level: 1,
         exp: 0,
         class: '',
+        healthTotal: 0,
+        healthCurrent: 0,
         gender: '',
-        stats: [0, 0, 0, 0, 0, 0],
+        stats: [10, 10, 10, 10, 10, 10],
+        extraStats: [0, 0, 0, 0, 0, 0],
+        originalStats: [10, 10, 10, 10, 10, 10],
         items: ['', '', ''],
         money: [0, 0, 0, 0, 0],
         alignment: '',
@@ -30,7 +34,126 @@ const CharCreate = ({ history, match, option }) => {
     const experienceArray = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
     
     const raceData = {
-
+        'Hill Dwarf': {
+            statBonus: [0, 0, 2, 1, 0, 0],
+            speed: 25,
+            abilities: []
+        },
+        'Mountain Dwarf': {
+            statBonus: [2, 0, 2, 0, 0, 0],
+            speed: 25,
+            abilities: []
+        },
+        'High Elf': {
+            statBonus: [0, 2, 0, 0, 1, 0],
+            speed: 30,
+            abilities: []
+        },
+        'Wood Elf': {
+            statBonus: [0, 2, 0, 1, 0, 0],
+            speed: 30,
+            abilities: []
+        },
+        'Dark Elf (Drow)': {
+            statBonus: [0, 2, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Lightfoot Halfling': {
+            statBonus: [0, 2, 0, 0, 0, 1],
+            speed: 25,
+            abilities: []
+        },
+        'Stout Halfling': {
+            statBonus: [0, 2, 1, 0, 0, 0],
+            speed: 25,
+            abilities: []
+        },
+        'Human (Standard)': {
+            statBonus: [1, 1, 1, 1, 1, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Human (Variant)': {
+            statBonus: [0, 0, 0, 0, 0, 0],
+            speed: 30,
+            abilities: []
+        },
+        'Black Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Blue Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Brass Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Bronze Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Copper Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Gold Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Green Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Red Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Silver Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'White Dragonborn': {
+            statBonus: [2, 0, 0, 0, 0, 1],
+            speed: 30,
+            abilities: []
+        },
+        'Forest Gnome': {
+            statBonus: [0, 1, 0, 0, 2, 0],
+            speed: 25,
+            abilities: []
+        },
+        'Rock Gnome': {
+            statBonus: [0, 0, 1, 0, 2, 0],
+            speed: 25,
+            abilities: []
+        },
+        'Half-Elf': {
+            statBonus: [0, 0, 0, 0, 0, 2],
+            speed: 30,
+            abilities: []
+        },
+        'Half-Orc': {
+            statBonus: [2, 0, 1, 0, 0, 0],
+            speed: 30,
+            abilities: []
+        },
+        'Tiefling': {
+            statBonus: [0, 0, 0, 0, 1, 2],
+            speed: 30,
+            abilities: []
+        }
     };
 
     const classData = {
@@ -162,11 +285,36 @@ const CharCreate = ({ history, match, option }) => {
     function handleChange(e) {
         let newDataObject = {};
         if (e.target.className === 'Stat') {
-            console.log('working');
             let currentStats = charData.stats;
+            let currentOriginalStats = charData.originalStats;
             const index = parseInt(e.target.name.slice(6, 7));
-            currentStats[index] = e.target.value;
-            newDataObject = {stats: currentStats};
+            const statInt = parseInt(e.target.value);
+            if (!statInt && statInt !== 0) {
+                currentStats[index] = 0;
+            }
+            else if (statInt > 30) {
+                currentStats[index] = 30;
+            }
+            else if (statInt < 0) {
+                currentStats[index] = 0;
+            }
+            else {
+                currentStats[index] = statInt;
+            };
+
+            currentOriginalStats[index] = currentStats[index] - charData.extraStats[index];
+            newDataObject = {
+                stats: currentStats,
+                originalStats: currentOriginalStats
+            };
+
+            if (index === 2 && charData.class) {
+                newDataObject['healthTotal'] = classData[charData.class.split(' ')[0]].healthAvg * (charData.level + 1) - 2 + (modifierValue(newDataObject.stats[2]) * (charData.level));
+            }
+            else if (index === 2) {
+                newDataObject['healthTotal'] = 4 * (charData.level + 1) - 2 + (modifierValue(newDataObject.stats[2]) * (charData.level));
+            };
+
         }
         else if (e.target.className === 'Item') {
             let currentItems = charData.items;
@@ -186,26 +334,31 @@ const CharCreate = ({ history, match, option }) => {
                 newDataObject = {[e.target.name]: 0};
             }
             else {
-                newDataObject = {[e.target.name]: parseInt(e.target.value)}
+                newDataObject = {[e.target.name]: expInt}
             };
         }
         else {
             newDataObject = {[e.target.name]: e.target.value};
         };
 
-        if (e.target.name !== 'exp' && charData.exp < 355000) {
-            newDataObject['level'] = experienceArray.findIndex((breakpoint) => {
-                return (charData.exp < breakpoint);
-            });
-        }
-        else if (newDataObject.exp < 355000) {
-            
+        // if (e.target.name !== 'exp' && charData.exp < 355000) {
+        //     newDataObject['level'] = experienceArray.findIndex((breakpoint) => {
+        //         return (charData.exp < breakpoint);
+        //     });
+        // }
+        // else 
+        if (newDataObject.exp && newDataObject.exp < 355000) {
             newDataObject['level'] = experienceArray.findIndex((breakpoint) => {
                 return (newDataObject.exp < breakpoint);
             });
         }
-        else {
+        else if (newDataObject.exp && newDataObject.exp > 355000) {
             newDataObject['level'] = 20;
+        };
+
+        if (newDataObject.race && newDataObject.race !== charData.race) {
+            // newDataObject['extraStats'] = raceData[newDataObject.race];
+            
         };
 
         const newCharData = {...charData, ...newDataObject};
@@ -274,6 +427,10 @@ const CharCreate = ({ history, match, option }) => {
             race: ajaxCharData.race,
             class: ajaxCharData.class,
             stats: ajaxCharData.stats,
+            extraStats: ajaxCharData.extraStats,
+            originalStats: ajaxCharData.originalStats,
+            healthTotal: ajaxCharData.healthTotal,
+            healthCurrent: ajaxCharData.healthCurrent,
             gender: ajaxCharData.gender,
             items: ajaxCharData.items,
             money: ajaxCharData.money,
@@ -312,12 +469,11 @@ const CharCreate = ({ history, match, option }) => {
         };
     }, []);
 
-    useEffect(() => {
-        if (charData.name && charData.class) {
-            setCharHealth(classData[charData.class.split(' ')[0]].healthAvg * (charData.level + 1) - 2 + (modifierValue(charData.stats[2]) * (charData.level)));
-            // console.log(charHealth);
-        };
-    }, [charData]);
+    // useEffect(() => {
+    //     if (charData.name && charData.class) {
+    //         setCharHealth(classData[charData.class.split(' ')[0]].healthAvg * (charData.level + 1) - 2 + (modifierValue(charData.stats[2]) * (charData.level)));
+    //     };
+    // }, [charData]);
 
     return (
         <div className="CharCreate">
@@ -363,18 +519,6 @@ const CharCreate = ({ history, match, option }) => {
                         <div id="raceContainer">
                             <label htmlFor="race">RACE</label>
                             <input type="text" id="race" value={charData.race} name="race" onClick={raceDrop} onChange={handleChange}/>
-                            {/* <select name="race" id="race">
-                                <option value=""></option>
-                                <option value="" onMouseEnter={() => showSubrace('dwarf')}>Dwarf</option>
-                                <option value="">Elf</option>
-                                <option value="">Halfling</option>
-                                <option value="">Human</option>
-                                <option value="">Dragonborn</option>
-                                <option value="">Gnome</option>
-                                <option value="">Half-Elf</option>
-                                <option value="">Half-Orc</option>
-                                <option value="">Tiefling</option>
-                            </select> */}
 
                             {showRaceDrop ? <RaceDrop toggleDropDown={setShowRaceDrop} charData={charData} setCharData={setCharData}/> : null}
                         </div>
@@ -396,32 +540,32 @@ const CharCreate = ({ history, match, option }) => {
                 <div id="stats">
                     <div id="strContainer">
                         <label htmlFor="str">STRENGTH</label>
-                        <input type="number" id="str" name="stats[0]" value={charData.stats[0]} className="Stat" onChange={handleChange}/>
+                        <input type="text" id="str" name="stats[0]" value={charData.stats[0]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier">{modifierValue(charData.stats[0])}</div>
                     </div>
                     <div id="dexContainer">
                         <label htmlFor="dex">DEXTERITY</label>
-                        <input type="number" id="dex" name="stats[1]" value={charData.stats[1]} className="Stat" onChange={handleChange}/>
+                        <input type="text" id="dex" name="stats[1]" value={charData.stats[1]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier">{modifierValue(charData.stats[1])}</div>
                     </div>
                     <div id="conContainer">
                         <label htmlFor="con">CONSTITUTION</label>
-                        <input type="number" id="con" name="stats[2]" value={charData.stats[2]} className="Stat" onChange={handleChange}/>
+                        <input type="text" id="con" name="stats[2]" value={charData.stats[2]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier">{modifierValue(charData.stats[2])}</div>
                     </div>
                     <div id="wisContainer">
                         <label htmlFor="wis">WISDOM</label>
-                        <input type="number" id="wis" name="stats[3]" value={charData.stats[3]} className="Stat" onChange={handleChange}/>
+                        <input type="text" id="wis" name="stats[3]" value={charData.stats[3]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier">{modifierValue(charData.stats[3])}</div>
                     </div>
                     <div id="intContainer">
                         <label htmlFor="int">INTELLIGENCE</label>
-                        <input type="number" id="int" name="stats[4]" value={charData.stats[4]} className="Stat" onChange={handleChange}/>
+                        <input type="text" id="int" name="stats[4]" value={charData.stats[4]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier">{modifierValue(charData.stats[4])}</div>
                     </div>
                     <div id="chaContainer">
                         <label htmlFor="con">CHARISMA</label>
-                        <input type="number" id="con" name="stats[5]" value={charData.stats[5]} className="Stat" onChange={handleChange}/>
+                        <input type="text" id="con" name="stats[5]" value={charData.stats[5]} className="Stat" onChange={handleChange}/>
                         <div className="Modifier">{modifierValue(charData.stats[5])}</div>
                     </div>
                 </div>
@@ -429,7 +573,7 @@ const CharCreate = ({ history, match, option }) => {
                     <div id="defense">
                         <div id="hitPoints">
                             <label htmlFor="hitPointsValue">HIT POINTS</label>
-                            <input type="text" value={charHealth} id="hitPointsValue" readOnly className="readOnly"/>
+                            <input type="text" value={charData.healthTotal} id="hitPointsValue" readOnly className="readOnly"/>
                         </div>
                         <div id="armorClass">
                             <label htmlFor="armorClassValue">ARMOR CLASS</label>
@@ -441,7 +585,7 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="currentHitPoints">
                             <label htmlFor="currentHitPointsValue">CURRENT HIT POINTS</label>
-                            <input type="text" id="currentHitPointsValue"/>
+                            <input type="text" value={charData.healthCurrent} id="currentHitPointsValue"/>
                         </div>
                     </div>
                     <div id="passive">
@@ -481,7 +625,7 @@ const CharCreate = ({ history, match, option }) => {
                             <p>SAVING THROWS</p>
                         </div>
                         <div id="passPerc">
-                            <input type="text" id="passPercValue" value={8 + modifierValue(charData.stats[3])} readOnly className="readOnly"/>
+                            <input type="text" id="passPercValue" value={10 + modifierValue(charData.stats[3], charData.proficiencies[1][11])} readOnly className="readOnly"/>
                             <label htmlFor="passPercValue">PASSIVE WISDOM(PERCEPTION)</label>
                         </div>
                     </div>

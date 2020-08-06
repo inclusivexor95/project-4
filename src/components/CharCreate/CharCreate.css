@@ -207,6 +207,7 @@ form input[type="text"]:hover {
 #currentHitPoints input {
     width: 30%;
     height: 70%;
+    margin-left: 5%;
 }
 
 #passive {

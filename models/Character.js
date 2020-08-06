@@ -14,6 +14,8 @@ const characterSchema = new Schema(
         race: String,
         class: String,
         stats: [Number],
+        healthTotal: Number,
+        healthCurrent: Number,
         items: [String],
         money: [Number],
         alignment: String,
