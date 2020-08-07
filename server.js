@@ -22,9 +22,11 @@ app.use(cookieParser());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use('/api/abilities', abilitiesRouter);
 app.use('/api/users', usersRouter);
 app.use(require('./config/auth'));
+app.use('/api/abilities', abilitiesRouter, function(req) {
+    console.log('express receiving request', req);
+});
 app.use('/api/characters', charactersRouter);
 
 app.get('/*', function(req, res) {

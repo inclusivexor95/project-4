@@ -11,9 +11,15 @@ const abilitySchema = new Schema(
         level: Number,
         cantrip: Boolean,
         range: Number,
-        weapon: Boolean,
+        item: Boolean,
+        equipped: Boolean,
         hands: Number,
-        damage: String
+        damage: [Number],
+        damageType: String,
+        armorBonus: Number,
+        otherEffects: [String],
+        aoe: Number,
+        rollType: String
     }
 );
 

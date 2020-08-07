@@ -13,7 +13,7 @@ const RaceDrop = ({ toggleDropDown, charData, setCharData, raceData, calculateHe
                 return stat - raceData[charData.race].statBonus[index] + newDataObject['extraStats'][index];
             });
             newDataObject['speed'] = raceData[newDataObject.race].speed;
-            // newDataObject['healthTotal'] = calculateHealth(newDataObject.stats[2]);
+            newDataObject['languages'] = raceData[newDataObject.race].languages;
         };
 
         

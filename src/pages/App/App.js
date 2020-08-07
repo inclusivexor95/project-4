@@ -7,6 +7,7 @@ import SignupPage from '../SignupPage/SignupPage';
 import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
 import CharPage from '../CharPage/CharPage';
+import NewAbility from '../NewAbility/NewAbility';
 
 
 class App extends Component {
@@ -75,6 +76,14 @@ class App extends Component {
                 match={match}
                 history={history}
                 handleLogout={this.handleLogout}
+                />
+            }/>
+            <Route exact path='/abilities/new' render={({ history, match }) => 
+                <NewAbility
+                user={this.state.user}
+                match={match}
+                history={history}
+                option='create'
                 />
             }/>
             <Route exact path='/signup' render={({ history }) => 

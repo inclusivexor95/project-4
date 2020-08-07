@@ -1,0 +1,35 @@
+.NewAbility {
+    height: 80%;
+    width: 60%;
+}
+
+.NewAbility form {
+    height: 100%;
+    width: 100%;
+}
+
+.NewAbility form div {
+    height: calc(100% / 15);
+    display: flex;
+    padding: 1%;
+    border: 1px solid white;
+}
+
+.NewAbility form div input {
+    width: 70%;
+    font-size: 2rem;
+    color: white;
+    text-align: left;
+
+}
+
+.NewAbility form div label {
+    width: 30%;
+    color: white;
+    font-size: 2rem;
+    text-align: left;
+}
+
+.NewAbility input[type="submit"] {
+    left: 75%;
+}

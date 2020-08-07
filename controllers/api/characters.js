@@ -1,7 +1,7 @@
 const Character = require('../../models/Character');
 const User = require('../../models/User');
-const jwt = require('jsonwebtoken');
-const SECRET = process.env.SECRET;
+// const jwt = require('jsonwebtoken');
+// const SECRET = process.env.SECRET;
 
 
 module.exports = {

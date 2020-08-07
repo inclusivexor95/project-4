@@ -17,6 +17,7 @@ const characterSchema = new Schema(
         extraStats: [Number],
         originalStats: [Number],
         speed: Number,
+        languages: [String],
         healthTotal: Number,
         healthCurrent: Number,
         items: [String],

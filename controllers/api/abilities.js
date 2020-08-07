@@ -7,7 +7,6 @@ module.exports = {
     create,
     delete: deleteOne,
     update,
-    new: abilityCreation,
     remove,
     add
 };
@@ -15,14 +14,18 @@ module.exports = {
 function update(req, res) {
     Ability.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then(function(ability) {
-        res.redirect(`/api/abilities/${req.params.charId}`);
+        res.status(200).json(ability);
+    }).catch(function(err) {
+        res.status(400).json(err);
     });
 }
 
 function deleteOne(req, res) {
     Ability.findByIdAndDelete(req.params.id)
-    .then(function(ability) {
-        res.redirect(`/api/abilities/${req.params.charId}`);
+    .then(function() {
+        res.status(200);
+    }).catch(function(err) {
+        res.status(400).json(err);
     });
 }
 
@@ -33,8 +36,11 @@ function remove(req, res) {
         character.abilities.forEach(function(abilityId) {
             if (req.params.id == abilityId) {
                 character.abilities.splice(i, 1);
-                character.save(function(err) {
-                    res.redirect(`/api/abilities/${character._id}`);
+                character.save(function() {
+                    res.status(200).json(character);
+                })
+                .catch(function(err) {
+                    res.status(400).json(err);
                 });
             };
             i++;
@@ -48,8 +54,11 @@ function add(req, res) {
         Ability.findById(req.params.id)
         .then(function(ability) {
             character.abilities.push(ability._id);
-            character.save(function(err) {
-                res.redirect(`/api/abilities/${character._id}`);
+            character.save(function() {
+                res.status(200).json(character);
+            })
+            .catch(function(err) {
+                res.status(400).json(err);
             });
         });
     });
@@ -58,24 +67,20 @@ function add(req, res) {
 function show(req, res) {
     Ability.findById(req.params.id)
     .then(function(ability) {
-        Character.findById(req.params.charId)
-        .then(function(character) {
-            res.render('api/createAbility', {character, ability, abilityBoolean: true});
-        });
+        res.status(200).json(ability);
+    }).catch(function(err) {
+        res.status(400).json(err);
     });
 }
 
 function create(req, res) {
+    console.log('create function running');
     Ability.create(req.body)
     .then(function(ability) {
-        Character.findById(req.params.charId)
-        .then(function(character) {
-            character.abilities.push(ability._id);
-            character.save(function(err) {
-                res.redirect(`/api/abilities/${character._id}`);
-            });
-        });
-    })
+        res.status(200).json(ability);
+    }).catch(function(err) {
+        res.status(400).json(err);
+    });
 }
 
 function index(req, res) {
@@ -83,14 +88,9 @@ function index(req, res) {
     .then(function(character) {
         Ability.find({})
         .then(function(abilities) {
-            res.render('api/abilities', {character, abilities});
+            res.status(200).json(abilities);
+        }).catch(function(err) {
+            res.status(400).json(err);
         });
-    });
-}
-
-function abilityCreation(req, res) {
-    Character.findById(req.params.charId)
-    .then(function(character) {
-        res.render('api/createAbility', {character, abilityBoolean: false});
     });
 }

@@ -15,6 +15,7 @@ const CharCreate = ({ history, match, option }) => {
         healthTotal: 0,
         healthCurrent: 0,
         gender: '',
+        languages: '',
         speed: 30,
         stats: [10, 10, 10, 10, 10, 10],
         extraStats: [0, 0, 0, 0, 0, 0],
@@ -36,122 +37,146 @@ const CharCreate = ({ history, match, option }) => {
         'Hill Dwarf': {
             statBonus: [0, 0, 2, 1, 0, 0],
             speed: 25,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Dwarvish']
         },
         'Mountain Dwarf': {
             statBonus: [2, 0, 2, 0, 0, 0],
             speed: 25,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Dwarvish']
         },
         'High Elf': {
             statBonus: [0, 2, 0, 0, 1, 0],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Elvish']
         },
         'Wood Elf': {
             statBonus: [0, 2, 0, 1, 0, 0],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Elvish']
         },
         'Dark Elf (Drow)': {
             statBonus: [0, 2, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Elvish']
         },
         'Lightfoot Halfling': {
             statBonus: [0, 2, 0, 0, 0, 1],
             speed: 25,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Halfling']
         },
         'Stout Halfling': {
             statBonus: [0, 2, 1, 0, 0, 0],
             speed: 25,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Halfling']
         },
         'Human (Standard)': {
             statBonus: [1, 1, 1, 1, 1, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common']
         },
         'Human (Variant)': {
             statBonus: [0, 0, 0, 0, 0, 0],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common']
         },
         'Black Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Blue Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Brass Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Bronze Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Copper Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Gold Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Green Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Red Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Silver Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'White Dragonborn': {
             statBonus: [2, 0, 0, 0, 0, 1],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Draconic']
         },
         'Forest Gnome': {
             statBonus: [0, 1, 0, 0, 2, 0],
             speed: 25,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Gnomish']
         },
         'Rock Gnome': {
             statBonus: [0, 0, 1, 0, 2, 0],
             speed: 25,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Gnomish']
         },
         'Half-Elf': {
             statBonus: [0, 0, 0, 0, 0, 2],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Elvish']
         },
         'Half-Orc': {
             statBonus: [2, 0, 1, 0, 0, 0],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Orc']
         },
         'Tiefling': {
             statBonus: [0, 0, 0, 0, 1, 2],
             speed: 30,
-            abilities: []
+            abilities: [],
+            languages: ['Common', 'Infernal']
         }
     };
 
@@ -447,6 +472,7 @@ const CharCreate = ({ history, match, option }) => {
             stats: ajaxCharData.stats,
             extraStats: ajaxCharData.extraStats,
             originalStats: ajaxCharData.originalStats,
+            languages: ajaxCharData.languages,
             speed: ajaxCharData.speed,
             healthTotal: ajaxCharData.healthTotal,
             healthCurrent: ajaxCharData.healthCurrent,
@@ -811,7 +837,7 @@ const CharCreate = ({ history, match, option }) => {
                 </div>
                 <div id="languages">
                     <p>LANGUAGES</p>
-                    <textarea name="" id=""></textarea>
+                    <textarea name="" value={charData.languages} id="" readOnly></textarea>
                 </div>
                 <div id="items">
                     <p>ITEMS</p>
