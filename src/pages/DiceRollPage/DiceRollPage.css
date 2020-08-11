@@ -246,7 +246,7 @@
     background-color: rgb(155, 0, 155);
 }
 
-input[type="text"] {
+.DiceRollPage input[type="text"] {
     margin-left: 2%;
     margin-right: 2%;
     padding: 1%;
@@ -255,14 +255,14 @@ input[type="text"] {
     cursor: default;
 }
 
-button {
+.DiceRollPage button {
     padding: 1% 1.5% 1% 1.5%;
     transform: scaleX(1.5);
     margin-left: 2%;
     margin-right: 2%;
 }
 
-button.SmallButton {
+.DiceRollPage button.SmallButton {
     margin: 0;
     transform: none;
     height: 3vh;
@@ -270,13 +270,13 @@ button.SmallButton {
     padding: 0;
 }
 
-input[type="text"].NumInput {
+.DiceRollPage input[type="text"].NumInput {
     width: calc(4rem + 2vw);
     text-align: center;
     cursor: text;
 }
 
-input.RollResult {
+.DiceRollPage input.RollResult {
     width: calc(4rem + 2vw);
     text-align: center;
 }

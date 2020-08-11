@@ -3,6 +3,9 @@ import './CharCreate.css';
 import charactersService from '../../utils/charactersService';
 import RaceDrop from '../RaceDrop/RaceDrop';
 import ClassDrop from '../ClassDrop/ClassDrop';
+import SpellBook from '../SpellBook/SpellBook';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookOpen, faTshirt } from '@fortawesome/free-solid-svg-icons';
 
 
 const CharCreate = ({ history, match, option }) => {
@@ -28,6 +31,8 @@ const CharCreate = ({ history, match, option }) => {
 
     const [showRaceDrop, setShowRaceDrop] = useState(false);
     const [showClassDrop, setShowClassDrop] = useState(false);
+    const [showSpellBook, setShowSpellBook] = useState(false);
+    const [showEquipment, setShowEquipment] = useState(false);
 
     const modifierArray = [-5, -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
     const proficiencyArray = [2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6];
@@ -448,6 +453,23 @@ const CharCreate = ({ history, match, option }) => {
         }
     };
 
+    const toggleSpellBook = () => {
+        if (showSpellBook === false) {
+            setShowSpellBook(true);
+        };
+        if (showSpellBook === true) {
+            setShowSpellBook(false);
+        };
+    };
+
+    const toggleEquipment = () => {
+        if (showEquipment === false) {
+            setShowEquipment(true);
+        };
+        if (showEquipment === true) {
+            setShowEquipment(false);
+        };
+    };
 
     const handleDelete = async (e) => {
         try {
@@ -460,7 +482,7 @@ const CharCreate = ({ history, match, option }) => {
         } catch (err) {
 
         }
-    }
+    };
 
     const updateState = (ajaxCharData) => {
         setCharData({
@@ -834,6 +856,7 @@ const CharCreate = ({ history, match, option }) => {
                 <div id="abilities">
                     <p>PROFICIENCIES, TRAITS & ABILITIES</p>
                     <textarea name="" id=""></textarea>
+                    <button type="button"><FontAwesomeIcon icon={faBookOpen} onClick={toggleSpellBook} /></button>
                 </div>
                 <div id="languages">
                     <p>LANGUAGES</p>
@@ -870,8 +893,9 @@ const CharCreate = ({ history, match, option }) => {
                 <div id="otherEquipment">
                     <p>OTHER EQUIPMENT</p>
                     <textarea name="items[2]" id="otherEquipmentText" value={charData.items[2]} className="Item" onChange={handleChange}></textarea>
+                    <button type="button"><FontAwesomeIcon icon={faTshirt} onClick={toggleEquipment} /></button>
                 </div>
-                <input type="submit" value="DONE"/>
+                <input type="submit" value="DONE" id="doneButton"/>
                 <div id="deleteCharContainer">
                     <button type="button" onClick={showDelete} id="deleteChar" >x</button>
                     <div>
@@ -880,8 +904,8 @@ const CharCreate = ({ history, match, option }) => {
                         <button type="button" onClick={hideDelete} id="noDelete">NO</button>
                     </div>
                 </div>
-
             </form>
+            {showSpellBook ? <SpellBook /> : null}
         </div>
     );
 }

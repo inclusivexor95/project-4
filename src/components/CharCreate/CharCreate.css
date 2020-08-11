@@ -19,26 +19,26 @@ form#charCreateForm {
     border-radius: 1rem;
 }
 
-form input[type="text"], form input[type="number"] {
+.CharCreate form input[type="text"], form input[type="number"] {
     background-color: rgba(109, 103, 110, 0.5);
     border: 1px solid transparent;
     font-family: Tiamat Alt;
     text-align: center;
 }
 
-form input[type="text"]:hover, form input[type="number"]:hover {
+.CharCreate form input[type="text"]:hover, form input[type="number"]:hover {
     border: 1px solid #1b1b1e;
 }
 
-li {
+.CharCreate li {
     display: flex;
 }
 
-ul li input[type="text"] {
+.CharCreate ul li input[type="text"] {
     width: 15%;
 }
 
-form input[type="text"]:hover {
+.CharCreate form input[type="text"]:hover {
     cursor: text;
 }
 
@@ -98,8 +98,12 @@ form input[type="text"]:hover {
     border-bottom: 1px solid black;
 }
 
+#classContainer label {
+    margin: 0 20%;
+}
+
 #classContainer input {
-    width: 100%;
+    width: 80%;
 }
 
 #alignmentContainer {
@@ -192,6 +196,12 @@ form input[type="text"]:hover {
     align-items: center;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
+    padding: 1% 0;
+}
+
+#hitPoints input, #armorClass input, #proficiencyBonus input {
+    width: 3vh;
+    height: 3vh;
 }
 
 #currentHitPoints {
@@ -395,6 +405,19 @@ form input[type="text"]:hover {
     grid-column: 5 / 5;
     padding: 0 1% 1% 1%;
     border-bottom: 1px solid black;
+    position: relative;
+}
+
+#abilities button {
+    position: absolute;
+    bottom: 4%;
+    left: 7%;
+    /* background-color: #96031a; */
+    color: #1b1b1e;
+    border: 1px solid #1b1b1e;
+    max-width: 40px;
+    min-width: 40px;
+    height: 40px;
 }
 
 #languages {
@@ -460,9 +483,21 @@ form input[type="text"]:hover {
     grid-column: 3 / 5;
     padding: 0 1% 1% 1%;
     border-right: 1px solid black;
+    position: relative;
 }
 
-textarea {
+#otherEquipment button {
+    position: absolute;
+    top: 4%;
+    right: 7%;
+    /* background-color: #96031a; */
+    color: #1b1b1e;
+    border: 1px solid #1b1b1e;
+    width: 15%;
+    height: 15%;
+}
+
+.CharCreate textarea {
     width: 100%;
     height: 80%;
     background: transparent;
@@ -498,13 +533,13 @@ textarea {
     font-size: calc(1rem + 0.3vw);
 }
 
-h2 {
+.CharCreate h2 {
     text-align: center;
     font-size: calc(1.5rem + 0.6vw);
     text-decoration: underline;
 }
 
-input[type="submit"] {
+.CharCreate input[type="submit"]#doneButton {
     position: absolute;
     bottom: 3%;
     left: -25%;
@@ -516,7 +551,7 @@ input[type="submit"] {
     border: none;
 }
 
-input[type="submit"]:hover {
+.CharCreate input[type="submit"]:hover {
     cursor: pointer;
 }
 
@@ -547,4 +582,15 @@ input[type="submit"]:hover {
 #charCreateForm input.readOnly:hover {
     border: 1px solid transparent;
     cursor: default;
+}
+
+.SpellBook {
+    position: absolute;
+    top: calc(70% - 45vh);
+    right: 0;
+    width: 53vh;
+    height: 39.09vh;
+    /* background-color: red; */
+    background-image: url(/assets/book.png);
+    background-size: cover;
 }

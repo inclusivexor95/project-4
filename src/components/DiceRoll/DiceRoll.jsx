@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import './DiceRoll.css';
 
 
 const DiceRoll = ({ rollChain, handlePlusMinus, plusMinus, handleRoll, rollResult }) => {

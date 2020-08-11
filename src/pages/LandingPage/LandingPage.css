@@ -5,12 +5,12 @@
     margin: 8vh auto;
 }
 
-svg {
+.LandingPage svg {
     width: 100%;
     height: 100%;
 }
 
-polyline {
+.LandingPage polyline {
     stroke: white;
 }
 
