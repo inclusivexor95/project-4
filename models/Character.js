@@ -23,6 +23,10 @@ const characterSchema = new Schema(
         items: [String],
         money: [Number],
         alignment: String,
+        equipment: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Item'
+        }],
         abilities: [{
             type: Schema.Types.ObjectId,
             ref: 'Ability'

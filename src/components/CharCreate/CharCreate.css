@@ -612,3 +612,18 @@ form#charCreateForm {
     background-image: url(/assets/book.png);
     background-size: cover;
 }
+
+.Equipment {
+    position: absolute;
+    top: calc(5%);
+    left: 1vh;
+    width: 50vh;
+    height: 89.38vh;
+    /* background-color: red; */
+    /* background-color: rgb(75, 1.5, 13); */
+    background-image: url(/assets/warrior.png);
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid #fbfffe;
+}

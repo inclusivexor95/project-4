@@ -1,0 +1,35 @@
+.NewItem {
+    height: 80%;
+    width: 60%;
+}
+
+.NewItem form {
+    height: 100%;
+    width: 100%;
+}
+
+.NewItem form div {
+    height: calc(100% / 15);
+    display: flex;
+    padding: 1%;
+    border: 1px solid white;
+}
+
+.NewItem form div input {
+    width: 70%;
+    font-size: 2rem;
+    color: white;
+    text-align: left;
+
+}
+
+.NewItem form div label {
+    width: 30%;
+    color: white;
+    font-size: 2rem;
+    text-align: left;
+}
+
+.NewItem input[type="submit"] {
+    left: 75%;
+}

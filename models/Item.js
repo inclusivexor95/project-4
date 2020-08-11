@@ -9,7 +9,6 @@ const itemSchema = new Schema(
             required: true
         },
         bonusStats: [Number],
-        baseArmor: Number,
         bonusArmor: Number,
         ammoFor: String,
         amount: Number,

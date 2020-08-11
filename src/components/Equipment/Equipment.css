@@ -1,0 +1,97 @@
+.Equipment #backgroundColor {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(75, 1.5, 13, 0.6);
+    display: grid;
+    grid-template-columns: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
+    grid-template-rows: 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5% 5%;
+}
+
+.Equipment .equipBox {
+    border: 1px solid #fbfffe;
+}
+
+.Equipment #misc1 {
+    grid-column: 2 / 4;
+    grid-row: 11 / 12;
+}
+
+.Equipment #misc2 {
+    grid-column: 2 / 4;
+    grid-row: 14 / 15;
+}
+
+.Equipment #misc3 {
+    grid-column: 2 / 4;
+    grid-row: 17 / 18;
+}
+
+.Equipment #head {
+    grid-column: 10 / 14;
+    grid-row: 4 / 6;
+}
+
+.Equipment #quiver {
+    grid-column: 16 / 19;
+    grid-row: 3 / 6;
+}
+
+.Equipment #neck {
+    grid-column: 10 / 14;
+    grid-row: 7 / 8;
+}
+
+.Equipment #gloveLeft {
+    grid-column: 15 / 19;
+    grid-row: 8 / 11;
+}
+
+.Equipment #gloveRight {
+    grid-column: 5 / 9;
+    grid-row: 8 / 11;
+}
+
+.Equipment #body {
+    grid-column: 10 / 14;
+    grid-row: 9 / 14;
+}
+
+.Equipment #handLeft {
+    grid-column: 15 / 19;
+    grid-row: 12 / 16;
+}
+
+.Equipment #handRight {
+    grid-column: 5 / 9;
+    grid-row: 12 / 16;
+}
+
+.Equipment #ringLeft1 {
+    grid-column: 6 / 8;
+    grid-row: 3 / 4;
+}
+
+.Equipment #ringLeft2 {
+    grid-column: 6 / 8;
+    grid-row: 5 / 6;
+}
+
+.Equipment #ringRight1 {
+    grid-column: 3 / 5;
+    grid-row: 3 / 4;
+}
+
+.Equipment #ringRight2 {
+    grid-column: 3 / 5;
+    grid-row: 5 / 6;
+}
+
+.Equipment #bootLeft {
+    grid-column: 7 / 11;
+    grid-row: 17 / 20;
+}
+
+.Equipment #bootRight {
+    grid-column: 13 / 17;
+    grid-row: 17 / 20;
+}

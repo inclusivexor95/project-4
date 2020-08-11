@@ -4,6 +4,7 @@ import charactersService from '../../utils/charactersService';
 import RaceDrop from '../RaceDrop/RaceDrop';
 import ClassDrop from '../ClassDrop/ClassDrop';
 import SpellBook from '../SpellBook/SpellBook';
+import Equipment from '../Equipment/Equipment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faTshirt } from '@fortawesome/free-solid-svg-icons';
 
@@ -454,7 +455,6 @@ const CharCreate = ({ history, match, option }) => {
     };
 
     const toggleSpellBook = () => {
-        console.log('working');
         if (showSpellBook === false) {
             setShowSpellBook(true);
         };
@@ -907,6 +907,7 @@ const CharCreate = ({ history, match, option }) => {
                 </div>
             </form>
             {showSpellBook ? <SpellBook /> : null}
+            {showEquipment ? <Equipment /> : null}
         </div>
     );
 }
