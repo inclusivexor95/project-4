@@ -12,6 +12,7 @@ const port = process.env.PORT || 3001;
 
 const charactersRouter = require('./routes/api/characters');
 const abilitiesRouter = require('./routes/api/abilities');
+const itemsRouter = require('./routes/api/items');
 const usersRouter = require('./routes/api/users');
 
 const app = express();
@@ -24,10 +25,9 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/users', usersRouter);
 app.use(require('./config/auth'));
-app.use('/api/abilities', abilitiesRouter, function(req) {
-    console.log('express receiving request', req);
-});
+app.use('/api/abilities', abilitiesRouter);
 app.use('/api/characters', charactersRouter);
+app.use('/api/items', itemsRouter);
 
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar'
 import './CharPage.css';
 import CharCreate from '../../components/CharCreate/CharCreate';

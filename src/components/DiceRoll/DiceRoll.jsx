@@ -34,7 +34,7 @@ const DiceRoll = ({ rollChain, handlePlusMinus, plusMinus, handleRoll, rollResul
         if (input === '') {
             setInputData({invalidInput: false, numInput: 0});
         }
-        else if (input != integer) {
+        else if (input !== integer) {
             setInputData({invalidInput: true, numInput: integer});
         }
         else {
@@ -47,7 +47,7 @@ const DiceRoll = ({ rollChain, handlePlusMinus, plusMinus, handleRoll, rollResul
             <p>I want to roll:</p>
             <input 
             type="text" 
-            value={rollText}
+            value={rollText} readOnly
             />
             <button className="SmallButton"
                 onClick={handlePlusMinus}
@@ -62,7 +62,7 @@ const DiceRoll = ({ rollChain, handlePlusMinus, plusMinus, handleRoll, rollResul
             <div>
             <p>Result:</p>
             <input type="text" className="RollResult"
-                value={rollResult}
+                value={rollResult} readOnly
             />
             </div>
         </div>

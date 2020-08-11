@@ -419,10 +419,10 @@ const CharCreate = ({ history, match, option }) => {
         let typeIndex;
         const type = e.target.parentElement.parentElement.parentElement.id;
 
-        if (type == 'saves') {
+        if (type === 'saves') {
             typeIndex = 0;
         };
-        if (type == 'skillsContainer') {
+        if (type === 'skillsContainer') {
             typeIndex = 1;
         };
 
@@ -454,6 +454,7 @@ const CharCreate = ({ history, match, option }) => {
     };
 
     const toggleSpellBook = () => {
+        console.log('working');
         if (showSpellBook === false) {
             setShowSpellBook(true);
         };
@@ -705,7 +706,7 @@ const CharCreate = ({ history, match, option }) => {
                     <div id="skills">
                         <div id="speed">
                             <label htmlFor="speedValue">SPEED</label>
-                            <input type="text" defaultValue="30" value={charData.speed} id="speedValue" readOnly className="readOnly"/>
+                            <input type="text" value={charData.speed} id="speedValue" readOnly className="readOnly"/>
                         </div>
                         <div id="initiative">
                             <label htmlFor="initiativeValue">INITIATIVE</label>
@@ -842,8 +843,8 @@ const CharCreate = ({ history, match, option }) => {
                             <input type="text" className="AttackDamageType"/>
                         </div>
                         <div id="ammo">
-                            <p>AMMO</p>
-                            <p>Amt</p>
+                            <p id="ammoHeader">AMMO</p>
+                            <p id="amountHeader">Amt</p>
                             <input type="text" className="AmmoType"/>
                             <input type="text" className="AmmoAmount"/>
                             <input type="text" className="AmmoType"/>
@@ -856,7 +857,7 @@ const CharCreate = ({ history, match, option }) => {
                 <div id="abilities">
                     <p>PROFICIENCIES, TRAITS & ABILITIES</p>
                     <textarea name="" id=""></textarea>
-                    <button type="button"><FontAwesomeIcon icon={faBookOpen} onClick={toggleSpellBook} /></button>
+                    <button type="button" onClick={toggleSpellBook}><FontAwesomeIcon icon={faBookOpen} /></button>
                 </div>
                 <div id="languages">
                     <p>LANGUAGES</p>
@@ -893,7 +894,7 @@ const CharCreate = ({ history, match, option }) => {
                 <div id="otherEquipment">
                     <p>OTHER EQUIPMENT</p>
                     <textarea name="items[2]" id="otherEquipmentText" value={charData.items[2]} className="Item" onChange={handleChange}></textarea>
-                    <button type="button"><FontAwesomeIcon icon={faTshirt} onClick={toggleEquipment} /></button>
+                    <button type="button" onClick={toggleEquipment}><FontAwesomeIcon icon={faTshirt} /></button>
                 </div>
                 <input type="submit" value="DONE" id="doneButton"/>
                 <div id="deleteCharContainer">
