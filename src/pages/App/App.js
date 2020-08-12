@@ -8,6 +8,8 @@ import LoginPage from '../LoginPage/LoginPage';
 import userService from '../../utils/userService';
 import CharPage from '../CharPage/CharPage';
 import NewAbility from '../NewAbility/NewAbility';
+import NewItem from '../NewItem/NewItem';
+import AllItems from '../AllItems/AllItems';
 
 
 class App extends Component {
@@ -84,6 +86,21 @@ class App extends Component {
                 match={match}
                 history={history}
                 option='create'
+                />
+            }/>
+            <Route exact path='/items/new' render={({ history, match }) => 
+                <NewItem
+                user={this.state.user}
+                match={match}
+                history={history}
+                option='create'
+                />
+            }/>
+            <Route exact path='/items/all' render={({ history, match }) => 
+                <AllItems
+                user={this.state.user}
+                match={match}
+                history={history}
                 />
             }/>
             <Route exact path='/signup' render={({ history }) => 

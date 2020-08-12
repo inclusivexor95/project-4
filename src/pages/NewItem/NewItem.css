@@ -33,3 +33,17 @@
 .NewItem input[type="submit"] {
     left: 75%;
 }
+
+.NewItem .itemStats {
+    width: calc(calc(70% / 6) - 10px);
+    margin: 0 5px;
+}
+
+.NewItem .otherEffects, .NewItem .canBeEquipped {
+    width: calc(35% - 10px);
+    margin: 0 5px;
+}
+
+.NewItem input[type="submit"] {
+    padding: 20px;
+}

@@ -53,7 +53,12 @@
 
 .Equipment #body {
     grid-column: 10 / 14;
-    grid-row: 9 / 14;
+    grid-row: 9 / 13;
+}
+
+.Equipment #belt {
+    grid-column: 10 / 14;
+    grid-row: 14 / 15;
 }
 
 .Equipment #handLeft {
@@ -94,4 +99,13 @@
 .Equipment #bootRight {
     grid-column: 13 / 17;
     grid-row: 17 / 20;
+}
+
+.Equipment > div > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    color: #6d676e;
+    
 }

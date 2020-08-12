@@ -37,3 +37,23 @@
 .ClassDrop > div:hover {
     border: 2px solid #faa916;
 }
+
+.GenericDrop {
+    position: absolute;
+    top: 4%;
+    left: 65%;
+    background-color: rgb(27, 27, 30);
+    width: 34%;
+}
+
+.GenericDrop > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: white;
+    border: 2px solid rgb(27, 27, 30);
+}
+
+.GenericDrop > div:hover {
+    border: 2px solid #faa916;
+}

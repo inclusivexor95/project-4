@@ -3,6 +3,7 @@ import './CharCreate.css';
 import charactersService from '../../utils/charactersService';
 import RaceDrop from '../RaceDrop/RaceDrop';
 import ClassDrop from '../ClassDrop/ClassDrop';
+import GenericDrop from '../GenericDrop/GenericDrop';
 import SpellBook from '../SpellBook/SpellBook';
 import Equipment from '../Equipment/Equipment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,12 +33,19 @@ const CharCreate = ({ history, match, option }) => {
 
     const [showRaceDrop, setShowRaceDrop] = useState(false);
     const [showClassDrop, setShowClassDrop] = useState(false);
+    const [showAlignmentDrop, setShowAlignmentDrop] = useState(false);
+    const [showGenderDrop, setShowGenderDrop] = useState(false);
     const [showSpellBook, setShowSpellBook] = useState(false);
     const [showEquipment, setShowEquipment] = useState(false);
 
     const modifierArray = [-5, -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
     const proficiencyArray = [2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6];
     const experienceArray = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000];
+
+    const genericDropOptions = {
+        alignment: ['LE', 'NE', 'CE', 'LN', 'TN', 'CN', 'LG', 'NG', 'CG'],
+        gender: ['Male', 'Female', 'Other']
+    };
     
     const raceData = {
         'Hill Dwarf': {
@@ -519,12 +527,26 @@ const CharCreate = ({ history, match, option }) => {
         parentDiv.parentElement.style["background-color"] = 'transparent';
     };
 
-    const raceDrop = () => {
-        setShowRaceDrop(true);
-    };
+    const showDrop = (e) => {
+        setShowRaceDrop(false);
+        setShowClassDrop(false);
+        setShowAlignmentDrop(false);
+        setShowGenderDrop(false);
 
-    const classDrop = () => {
-        setShowClassDrop(true);
+        switch(e.target.name) {
+            case 'race':
+                setShowRaceDrop(true);
+                break;
+            case 'class':
+                setShowClassDrop(true);
+                break;
+            case 'alignment': 
+                setShowAlignmentDrop(true);
+                break;
+            case 'gender':
+                setShowGenderDrop(true);
+                break;
+        };
     };
 
     useEffect(() => {
@@ -571,39 +593,49 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="classContainer">
                             <label htmlFor="class">CLASS</label>
-                            <input type="text" id="class" value={charData.class} name="class" onClick={classDrop} readOnly/>
+                            <input type="text" id="class" value={charData.class} name="class" onClick={showDrop} readOnly/>
 
-                            {showClassDrop ? <ClassDrop toggleDropDown={setShowClassDrop} charData={charData} setCharData={setCharData}/> : null}
+                            {showClassDrop ? <ClassDrop toggleDropDown={setShowClassDrop} charData={charData} setCharData={setCharData} /> : null}
                         </div>
                         <div id="alignmentContainer">
                             <label htmlFor="charAlign">ALIGNMENT</label>
-                            <select name="alignment" id="charAlign" value={charData.alignment} onChange={handleChange}>
-                                <option value=""></option>
-                                <option value="LG">LG</option>
-                                <option value="LN">LN</option>
-                                <option value="LE">LE</option>
-                                <option value="NG">NG</option>
-                                <option value="TN">TN</option>
-                                <option value="NE">NE</option>
-                                <option value="CG">CG</option>
-                                <option value="CN">CN</option>
-                                <option value="CE">CE</option>
-                            </select>
+                            <input type="text" id="charAlign" value={charData.alignment} name="alignment" onClick={showDrop} readOnly/>
+
+                            {showAlignmentDrop ? <GenericDrop toggleDropDown={setShowAlignmentDrop} attribute={'alignment'} charData={charData} setCharData={setCharData} options={genericDropOptions.alignment} /> : null}
+                            {/* <div className="customSelect">
+                                <select name="alignment" id="charAlign" value={charData.alignment} onChange={handleChange}>
+                                    <option value=""></option>
+                                    <option value="LG">LG</option>
+                                    <option value="LN">LN</option>
+                                    <option value="LE">LE</option>
+                                    <option value="NG">NG</option>
+                                    <option value="TN">TN</option>
+                                    <option value="NE">NE</option>
+                                    <option value="CG">CG</option>
+                                    <option value="CN">CN</option>
+                                    <option value="CE">CE</option>
+                                </select>
+                            </div> */}
                         </div>
                         <div id="raceContainer">
                             <label htmlFor="race">RACE</label>
-                            <input type="text" id="race" value={charData.race} name="race" onClick={raceDrop} readOnly/>
+                            <input type="text" id="race" value={charData.race} name="race" onClick={showDrop} readOnly/>
 
-                            {showRaceDrop ? <RaceDrop toggleDropDown={setShowRaceDrop} calculateHealth={calculateHealth} raceData={raceData} classData={classData} charData={charData} setCharData={setCharData}/> : null}
+                            {showRaceDrop ? <RaceDrop toggleDropDown={setShowRaceDrop} calculateHealth={calculateHealth} raceData={raceData} classData={classData} charData={charData} setCharData={setCharData} /> : null}
                         </div>
                         <div id="genderContainer">
                             <label htmlFor="charGender">SEX</label>
-                            <select name="gender" id="charGender" value={charData.gender} onChange={handleChange}>
-                                <option value=""></option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <input type="text" id="charGender" value={charData.gender} name="gender" onClick={showDrop} readOnly/>
+
+                            {showGenderDrop ? <GenericDrop toggleDropDown={setShowGenderDrop} attribute={'gender'} charData={charData} setCharData={setCharData} options={genericDropOptions.gender} /> : null}
+                            {/* <div className="customSelect">
+                                <select name="gender" id="charGender" value={charData.gender} onChange={handleChange}>
+                                    <option value=""></option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div> */}
                         </div>
                         <div id="expContainer">
                             <input type="text" id="charExp" value={charData.exp} name="exp" onChange={handleChange}/>

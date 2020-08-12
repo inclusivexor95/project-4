@@ -115,6 +115,10 @@ form#charCreateForm {
     border-right: 1px solid black;
 }
 
+#alignmentContainer input {
+    width: 50%;
+}
+
 #raceContainer {
     width: 40%;
     border-right: 1px solid black;
@@ -131,6 +135,10 @@ form#charCreateForm {
 #genderContainer {
     width: 20%;
     border-right: 1px solid black;
+}
+
+#genderContainer input {
+    width: 80%;
 }
 
 #expContainer {
