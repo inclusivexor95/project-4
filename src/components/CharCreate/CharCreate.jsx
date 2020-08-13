@@ -6,6 +6,7 @@ import ClassDrop from '../ClassDrop/ClassDrop';
 import GenericDrop from '../GenericDrop/GenericDrop';
 import SpellBook from '../SpellBook/SpellBook';
 import Equipment from '../Equipment/Equipment';
+import ItemList from '../ItemList/ItemList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faTshirt } from '@fortawesome/free-solid-svg-icons';
 
@@ -37,6 +38,7 @@ const CharCreate = ({ history, match, option }) => {
     const [showGenderDrop, setShowGenderDrop] = useState(false);
     const [showSpellBook, setShowSpellBook] = useState(false);
     const [showEquipment, setShowEquipment] = useState(false);
+    const [showItemList, setShowItemList] = useState(false);
 
     const modifierArray = [-5, -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10];
     const proficiencyArray = [2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6];
@@ -940,6 +942,7 @@ const CharCreate = ({ history, match, option }) => {
             </form>
             {showSpellBook ? <SpellBook /> : null}
             {showEquipment ? <Equipment /> : null}
+            {showItemList ? <ItemList /> : null}
         </div>
     );
 }
