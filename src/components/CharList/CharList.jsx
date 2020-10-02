@@ -52,11 +52,7 @@ const CharList = ({ history }) => {
         if (isButton && e.currentTarget.contains(isButton)) {
             history.push(`/characters/${isButton.id}`)
         };
-
-
-
-        // history.push()
-    }
+    };
 
 
     return (
@@ -64,7 +60,6 @@ const CharList = ({ history }) => {
             <div id="charactersList" dangerouslySetInnerHTML={{__html: characters}} onClick={handleDetailLink}>
             </div>
             <Link to='/characters/new'>CREATE A CHARACTER</Link>
-
         </div>
     );
 };
