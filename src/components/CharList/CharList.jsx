@@ -25,13 +25,10 @@ const CharList = ({ history }) => {
     useEffect(() => {
         const fetchChars = async () => {
             const result = await charactersService.index();
-
-            // characters
-            // setCharacters(prevState => prevState.charArray.push(result));
+            
             result.forEach((char) => {
                 charArray.push(char);
             });
-            // const numOfChars = characters.charArray[0].length;
             const numOfChars = charArray.length
 
             console.log(charArray);
@@ -41,7 +38,6 @@ const CharList = ({ history }) => {
                 displayChars(i);
             };
             setCharacters(charHTML);
-            // console.log(displayedChars);
         };
         fetchChars();
     }, []);

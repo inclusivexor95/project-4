@@ -9,13 +9,20 @@ const RaceDrop = ({ toggleDropDown, charData, setCharData, raceData, calculateHe
         
         if (newDataObject.race !== charData.race) {
             newDataObject['extraStats'] = raceData[newDataObject.race].statBonus;
-            newDataObject['stats'] = charData.stats.map((stat, index) => {
-                return stat - raceData[charData.race].statBonus[index] + newDataObject['extraStats'][index];
-            });
+
+            if (charData.race) {
+                newDataObject['stats'] = charData.stats.map((stat, index) => {
+                    return stat - raceData[charData.race].statBonus[index] + newDataObject['extraStats'][index];
+                });
+            }
+            else {
+                newDataObject['stats'] = charData.stats.map((stat, index) => {
+                    return stat + newDataObject['extraStats'][index];
+                });
+            };
             newDataObject['speed'] = raceData[newDataObject.race].speed;
             newDataObject['languages'] = raceData[newDataObject.race].languages;
         };
-
         
         const newCharData = {...charData, ...newDataObject};
         setCharData(newCharData);
