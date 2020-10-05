@@ -38,3 +38,19 @@ In addition to the info normally found on a D&D character sheet, two yellow butt
 
 ### Dice Roller
 
+The "Dice Roller" button in the navigation bar is links to a page with multiple different types of dice displayed on it. These are the dice used in D&D and many other similar tabletop games. This page allows the user to roll different combinations of these dice, while adding or subtracting a 'modifier' value from the result.
+
+![Screenshot of dice roller page](/public/assets/screenshots/diceRollScreenshot.png)
+
+Clicking each of the gray boxes containing the coloured dice adds that die's value to the bar at the bottom (beside "I want to roll:"). The dice are, in order, a d4, d6, d8, d10, d12, and d20. "d4" means a 4-sided die, "d6" is a 6 sided die, and so on. Beside the bar is a yellow "+" button, which means whatever numerical value entered into the grey box on its right will be added to the dice total after the roll is completed. Clicking the "+" button turns it into a minus, subtracting the value instead. Clicking the "Roll" button on the right completes the roll, and displays the result in the grey box at the bottom, beside "Result:".
+
+## Future Additions
+
+The long term plan for this project is to make a fully comprehensive tool for both playing D&D and testing characters. As such there are quite a few additional features that will eventually be added to the project. Some of these are:
+
+- Adding stats/data for all items & equipment in the game so they can be easily added/equipped to characters
+- Adding stats/data for all spells & abilities in the game so they can be added to a character's spellbook
+- Adding a more comprehensive step-by-step character creation tool/guide
+- Giving the dice roller the ability to be minimized and/or used on other pages (e.g. during character creation)
+- Adding a 'combat testing' page/feature so that characters can be tested against D&D monsters
+
