@@ -4,12 +4,13 @@ import './DiceRollPage.css';
 import DiceRoll from '../../components/DiceRoll/DiceRoll';
 
 
-const DiceRollPage = ({ handleDieClick, handleLogout, rollChain, user, handlePlusMinus, plusMinus, handleRoll, rollResult }) => {
+const DiceRollPage = ({ handleDieClick, handleLogout, rollChain, user, handlePlusMinus, plusMinus, handleRoll, rollResult, history }) => {
     return (
         <div className="DiceRollPage">
             <NavBar
                 user={user}
                 handleLogout={handleLogout}
+                path={history.location.pathname}
             />
             <div className="DiceContainer D4"
                 onClick={() => handleDieClick('d4')}

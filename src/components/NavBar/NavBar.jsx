@@ -2,29 +2,42 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 
-const NavBar = (props) => {
-    let nav = props.user ?
+const NavBar = ({ user, handleLogout, path }) => {
+
+    let diceTernary = <React.Fragment>
+        {/^\/dice\/?$/.test(path) ? 
+            null :
+            <React.Fragment>
+                {/^\/characters\/?$/.test(path) ? null : <span>|</span>}
+                <Link to='/dice'>DICE ROLLER</Link>
+            </React.Fragment>
+        }   
+    </React.Fragment>;
+
+    let nav = user ?
         <div>
-        <Link to='' className='NavBar-link' onClick={props.handleLogout}>LOG OUT</Link>
-        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-        <span className='NavBar-welcome'>WELCOME, {props.user.name}</span>
-        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-        <Link to='/characters' className='NavBar-link'>CHARACTER LIST</Link>
-        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-        <Link to='/dice' className='NavBar-link'>DICE ROLLER</Link>
+            <Link to='' onClick={handleLogout}>LOG OUT</Link>
+            <span>|</span>
+            <span>WELCOME, {user.name}</span>
+            <span>|</span>
+            {/^\/characters\/?$/.test(path) ? 
+                null :
+                <Link to='/characters'>CHARACTER LIST</Link>
+            }
+            {diceTernary}
         </div>
         :
         <div>
-        <Link to='/login' className='NavBar-link'>LOG IN</Link>
-        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-        <Link to='/signup' className='NavBar-link'>SIGN UP</Link>
-        &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-        <Link to='/dice' className='NavBar-link'>I JUST WANNA ROLL SOME DICE</Link>
+            <Link to='/login'>LOG IN</Link>
+            <span>|</span>
+            <Link to='/signup'>SIGN UP</Link>
+            {diceTernary}
         </div>;
+
 
     return (
         <div className='NavBar'>
-        {nav}
+            {nav}
         </div>
     );
 };

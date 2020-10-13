@@ -115,7 +115,7 @@ class App extends Component {
                 handleSignupOrLogin={this.handleSignupOrLogin}
                 />
             }/>
-            <Route exact path='/dice' render={() => 
+            <Route exact path='/dice' render={({ history }) => 
                 <DiceRollPage
                 handleDieClick={this.handleDieClick}
                 handleLogout={this.handleLogout}
@@ -125,6 +125,7 @@ class App extends Component {
                 plusMinus={this.state.plusMinus}
                 handleRoll={this.handleRoll}
                 rollResult={this.state.rollResult}
+                history={history}
                 />
             }/>
             </Switch>

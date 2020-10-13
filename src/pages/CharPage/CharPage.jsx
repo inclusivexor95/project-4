@@ -7,18 +7,13 @@ import CharList from '../../components/CharList/CharList';
 
 
 const CharPage = ({ user, handleLogout, history }) => {
-    const [backToChars, setBackToChars] = useState(false);
-
-    const addBackToNav = () => {
-        setBackToChars(true);
-    };
 
     return (
         <div className="CharPage">
             <NavBar
                 user={user}
                 handleLogout={handleLogout}
-                backToChars={backToChars}
+                path={history.location.pathname}
             />
             <Switch>
             <Route exact path='/characters' render={() => 
@@ -30,7 +25,6 @@ const CharPage = ({ user, handleLogout, history }) => {
                 <CharCreate
                     option='create'
                     history={history}
-                    addBackToNav={addBackToNav}
                 />
             }/>
             <Route exact path='/characters/:charId' render={({ match }) => 
@@ -38,7 +32,6 @@ const CharPage = ({ user, handleLogout, history }) => {
                     match={match}
                     option='detail'
                     history={history}
-                    addBackToNav={addBackToNav}
                 />
             }/>
             </Switch>
