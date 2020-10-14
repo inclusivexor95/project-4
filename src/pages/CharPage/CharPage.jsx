@@ -20,12 +20,16 @@ const CharPage = ({ user, handleLogout, history }) => {
             }/>
             <Route exact path='/characters/new' render={() => 
                 <CharCreate
+                    user={user}
+                    handleLogout={handleLogout}
                     option='create'
                     history={history}
                 />
             }/>
             <Route exact path='/characters/:charId' render={({ match }) => 
                 <CharCreate
+                    user={user}
+                    handleLogout={handleLogout}
                     match={match}
                     option='detail'
                     history={history}

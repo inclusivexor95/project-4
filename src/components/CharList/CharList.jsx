@@ -5,7 +5,7 @@ import NavBar from '../NavBar/NavBar';
 import charactersService from '../../utils/charactersService';
 
 
-const CharList = ({ history }) => {
+const CharList = ({ history, user, handleLogout }) => {
     const [characters, setCharacters] = useState('');
     let numDisplayed = 0;
     let charHTML = '';
@@ -57,6 +57,8 @@ const CharList = ({ history }) => {
             <h1>D&D Character Creator</h1>
             <NavBar
                 path={history.location.pathname}
+                user={user}
+                handleLogout={handleLogout}
             />
             <div id="charactersList" dangerouslySetInnerHTML={{__html: characters}} onClick={handleDetailLink}>
             </div>

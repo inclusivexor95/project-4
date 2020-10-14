@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faTshirt } from '@fortawesome/free-solid-svg-icons';
 
 
-const CharCreate = ({ history, match, option }) => {
+const CharCreate = ({ history, match, option, user, handleLogout }) => {
     const [charData, setCharData] = useState({
         name: '',
         race: '',
@@ -576,6 +576,8 @@ const CharCreate = ({ history, match, option }) => {
     return (
         <div className="CharCreate">
             <NavBar
+                user={user}
+                handleLogout={handleLogout}
                 path={history.location.pathname}
             />
             <div id="helpInfo">

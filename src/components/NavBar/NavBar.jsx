@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 
@@ -8,8 +9,7 @@ const NavBar = ({ user, handleLogout, path }) => {
         {/^\/dice\/?$/.test(path) ? 
             null :
             <React.Fragment>
-                {/* {/^\/characters\/?$/.test(path) ? null : <span>|</span>} */}
-                <span>|</span>
+                {/^\/characters\/?$/.test(path) ? null : <span>|</span>}
                 <Link to='/dice'>DICE ROLLER</Link>
             </React.Fragment>
         }   
