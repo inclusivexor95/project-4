@@ -10,14 +10,11 @@ const CharPage = ({ user, handleLogout, history }) => {
 
     return (
         <div className="CharPage">
-            <NavBar
-                user={user}
-                handleLogout={handleLogout}
-                path={history.location.pathname}
-            />
             <Switch>
             <Route exact path='/characters' render={() => 
                 <CharList
+                    user={user}
+                    handleLogout={handleLogout}
                     history={history}
                 />
             }/>

@@ -7,6 +7,7 @@ import GenericDrop from '../GenericDrop/GenericDrop';
 import SpellBook from '../SpellBook/SpellBook';
 import Equipment from '../Equipment/Equipment';
 import ItemList from '../ItemList/ItemList';
+import NavBar from '../NavBar/NavBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookOpen, faTshirt } from '@fortawesome/free-solid-svg-icons';
 
@@ -574,6 +575,9 @@ const CharCreate = ({ history, match, option }) => {
 
     return (
         <div className="CharCreate">
+            <NavBar
+                path={history.location.pathname}
+            />
             <div id="helpInfo">
                 <h2>INSTRUCTIONS</h2>
                 <p>1. Choose a NAME, RACE, AND CLASS for your character. These are all located towards the top of the character sheet.</p>
@@ -734,7 +738,7 @@ const CharCreate = ({ history, match, option }) => {
                         </div>
                         <div id="passPerc">
                             <input type="text" id="passPercValue" value={10 + modifierValue(charData.stats[3], charData.proficiencies[1][11])} readOnly className="readOnly"/>
-                            <label htmlFor="passPercValue">PASSIVE WISDOM(PERCEPTION)</label>
+                            <label htmlFor="passPercValue">PASSIVE WISDOM (PERCEPTION)</label>
                         </div>
                     </div>
                     <div id="skills">

@@ -13,7 +13,7 @@
     align-content: flex-start;
 }
 
-.CharList a {
+.CharList a.LinkToButton {
     background-color: #faa916;
     font-family: Tiamat Regular;
     color: #1b1b1e;

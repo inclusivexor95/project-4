@@ -110,6 +110,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 98%;
 }
 
 a {
@@ -133,3 +134,10 @@ input[type="text"] {
     border: none;
 }
 
+@media (max-width: 600px) {
+    
+    .NavBar {
+        height: 10vh;
+        line-height: 4vh;
+    }
+}

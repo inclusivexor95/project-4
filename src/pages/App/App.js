@@ -64,7 +64,6 @@ class App extends Component {
     render() {
         return (
         <div className="Wrapper">
-            <h1>D&D Character Creator</h1>
             <Switch>
             <Route exact path='/' render={() =>
                 <LandingPage

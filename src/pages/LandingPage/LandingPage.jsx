@@ -6,6 +6,7 @@ import './LandingPage.css';
 const LandingPage = (props) => {
     return (
         <div className="LandingPage">
+            <h1>D&D Character Creator</h1>
             <NavBar
                 user={props.user}
                 handleLogout={props.handleLogout}

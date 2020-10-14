@@ -7,6 +7,7 @@ import DiceRoll from '../../components/DiceRoll/DiceRoll';
 const DiceRollPage = ({ handleDieClick, handleLogout, rollChain, user, handlePlusMinus, plusMinus, handleRoll, rollResult, history }) => {
     return (
         <div className="DiceRollPage">
+            <h1>D&D Character Creator</h1>
             <NavBar
                 user={user}
                 handleLogout={handleLogout}

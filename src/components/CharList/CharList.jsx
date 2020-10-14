@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './CharList.css';
+import NavBar from '../NavBar/NavBar';
 import charactersService from '../../utils/charactersService';
 
 
@@ -53,9 +54,13 @@ const CharList = ({ history }) => {
 
     return (
         <div className="CharList">
+            <h1>D&D Character Creator</h1>
+            <NavBar
+                path={history.location.pathname}
+            />
             <div id="charactersList" dangerouslySetInnerHTML={{__html: characters}} onClick={handleDetailLink}>
             </div>
-            <Link to='/characters/new'>CREATE A CHARACTER</Link>
+            <Link to='/characters/new' className="LinkToButton">CREATE A CHARACTER</Link>
         </div>
     );
 };
