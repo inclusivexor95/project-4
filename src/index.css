@@ -125,7 +125,7 @@ button {
     font-family: Tiamat Regular;
 }
 
-button:hover {
+button:hover, a:hover, input[type="submit"]:hover {
     cursor: pointer;
 }
 
@@ -135,9 +135,8 @@ input[type="text"] {
 }
 
 @media (max-width: 600px) {
-    
     .NavBar {
-        height: 10vh;
+        height: auto;
         line-height: 4vh;
     }
 }
