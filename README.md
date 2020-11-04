@@ -16,7 +16,7 @@ Multiple iterations of D&D have been released over the years, however this proje
 
 When the URL (https://dndproject4.herokuapp.com) is initially loaded, a simple landing page is displayed.
 
-![Screenshot of landing page](/public/assets/screenshots/landingPageScreenshotNotLoggedIn.png)
+![Screenshot of landing page](/public/assets/screenshots/landingScreenshotNotLoggedIn.png)
 
 Towards the top of the screen, below the title (D&D Character Creator) is the navigation bar, which contains "Log In" and "Sign Up" buttons. These link to their respective form pages, and are replaced by the user's name and a "Log Out" button once the user has created an account/logged in. 
 
